@@ -94,7 +94,7 @@ OUTPUT_DEVICE=hw:0
 OUTPUT_MIXER_TYPE=software
 ```
 
-Say it's stored in ~/my-config/mpd.env.  
+Say you store it as `~/my-config/mpd.env`.  
 Say this repository is cloned at the directory `~/git/player-launchers`.  
 Create the system unit with the following contents in `~/.config/systemd/user/my-mpd-instance.service` with the following contents:
 
