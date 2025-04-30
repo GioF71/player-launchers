@@ -21,6 +21,10 @@ VARIABLE|DESCRIPTION
 SQUEEZELITE_SERVER_PORT|The server and port, optional
 SQUEEZELITE_AUDIO_DEVICE|The audio device, optional
 
+#### Usage examples
+
+Todo.
+
 ### MPD
 
 The script is the file `mpd-runner.py` in the `runner` directory of the repository.  
@@ -74,6 +78,10 @@ OUTPUT_THESYCON_DSD_WORKAROUND|Output property, valid for `alsa`
 OUTPUT_DOP|Output property, valid for `alsa`
 
 Indexed variables can be added in multiple instances. For OUTPUT_CREATE, you can create the initial OUTPUT_CREATE, then OUTPUT_CREATE_1, OUTPUT_CREATE_2, etc.
+
+#### Usage examples
+
+Todo.
 
 ## Dependencies
 
