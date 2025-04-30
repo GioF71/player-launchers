@@ -1,1 +1,86 @@
 # systemd-players
+
+Easily configure your players with environment variables, and run them using Python.
+
+- MPD (Music Player Daemon)
+- squeezelite
+
+## Caveat
+
+This project is in the early development stages. Documentation might be incomplete or totally missing.  
+
+## Players
+
+### Squeezelite
+
+The script is the file `sq-runner.py` in the `runner` directory of the repository.  
+This one is currently very limited, and will support just a handful of environment variables.  
+
+VARIABLE|DESCRIPTION
+:---|:---
+SQUEEZELITE_SERVER_PORT|The server and port, optional
+SQUEEZELITE_AUDIO_DEVICE|The audio device, optional
+
+### MPD
+
+The script is the file `mpd-runner.py` in the `runner` directory of the repository.  
+The variables you can use are in the following table.
+
+VARIABLE|DESCRIPTION
+:---|:---
+MPD_BINARY_PATH|Where mpd is located, defaults to `/usr/bin/mpd`
+CONFIG_FILE_NAME|Specifies where to write the configuration file. Not recommended to use
+INSTANCE_NAME|Instance name for mpd, useful when you want to run more than one instance of mpd
+CACHE_DIRECTORY|Specify where to locate the configuration directories for db, playlist, music, etc.
+MPD_BIND_ADDRESS|Bind address, defaults to `[::]`
+MPD_PORT|Port, defaults to `6600`
+MUSIC_DIRECTORY|Where the music is located, optional
+PLAYLIST_DIRECTORY|Where the playlists are located, optional
+LOG_DIRECTORY|Where the logs are located, optional
+CONFIG_DIRECTORY|Where the config files must be located, optional
+ENABLE_DB_FILE|Enables the DB
+DB_FILE|Name for the DB file
+LOG_LEVEL|Mpd log level
+ENABLE_LOG_FILE|Enables log file
+LOG_FILE_NAME|Log file name
+PID_FILE|Pid file location, optional
+ENABLE_STICKER_FILE|Enables the sticker file, defaults to `yes`
+STICKER_FILE|Name of the sticker file, defaults to `sticker.sql`
+ENABLE_STATE_FILE|Enables the state file, defaults to `yes`
+STATE_FILE|Name of the state file, defaults to `state`
+STATE_FILE_INTERVAL|Update interval, defaults to `15`
+RESTORE_PAUSED|Restore mpd in paused state, defaults to `yes`
+MPD_RUNNING_MODE|Set to `no-daemon`, `systemd` or `daemon`
+MPD_RUN_WITH_STDERR|Run with `--stderr`
+MPD_RUN_WITH_VERBOSE|Run with `--verbose`
+INPUT_CURL_CREATE|Creates the curl input plugin entry, defaults to `yes`
+INPUT_CURL_ENABLED|Enables curl input plugin, defaults to `yes`
+DECODER_HDCD_CREATE|Creates the hdcd decoder plugin entry, defaults to `yes`
+DECODER_HDCD_ENABLED|Enables hdcd decoder plugin, defaults to `yes`
+DECODER_WILDMIDI_CREATE|Creates the wildmidi decoder plugin entry, defaults to `yes`
+DECODER_WILDMIDI_ENABLED|Enables wildmidi decoder plugin, defaults to `no`
+FILESYSTEM_CHARSET|Defaults to `UTF-8`
+OUTPUT_CREATE|Indexed, create an output
+OUTPUT_ENABLED|Indexed, enables the output
+OUTPUT_TYPE|Indexed, specifies output type (`alsa`, `pipewire`, more to come)
+OUTPUT_MIXER_TYPE|Output mixer type, e.g. `software`
+OUTPUT_DEVICE|Output property, valid for `alsa`
+OUTPUT_MIXER_CONTROL|Output property, valid for `alsa`
+OUTPUT_MIXER_INDEX|Output property, valid for `alsa`
+OUTPUT_ALLOWED_FORMATS|Output property, valid for `alsa`
+OUTPUT_AUTO_RESAMPLE|Output property, valid for `alsa`
+OUTPUT_STOP_DSD_SILENCE|Output property, valid for `alsa`
+OUTPUT_THESYCON_DSD_WORKAROUND|Output property, valid for `alsa`
+OUTPUT_DOP|Output property, valid for `alsa`
+
+Indexed variables can be added in multiple instances. For OUTPUT_CREATE, you can create the initial OUTPUT_CREATE, then OUTPUT_CREATE_1, OUTPUT_CREATE_2, etc.
+
+## Dependencies
+
+You just need to have Python installed.  
+
+## Changelog
+
+DATE|COMMENT
+:---|:---
+2025-04-30|First public release

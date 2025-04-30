@@ -1,0 +1,48 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Squeezelite for onboard audio",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/runner/sq-runner.py",
+            "console": "integratedTerminal",
+            "env": {
+                "SQUEEZELITE_AUDIO_DEVICE": "hw:CARD=PCH",
+                "SQUEEZELITE_SERVER_PORT": "lms.homelab.local"
+            }
+        },
+        {
+            "name": "MPD",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/runner/mpd-runner.py",
+            "console": "integratedTerminal",
+            "env": {
+                "CACHE_DIRECTORY": "tmp",
+                "INSTANCE_NAME": "mpd-openhome-test",
+                "MUSIC_DIRECTORY_": "~/Music",
+                "LOG_LEVEL_": "info",
+                "LOG_FILE_NAME_": "mpd.log",
+                "PID_FILE_": "/some/pid/file",
+                "CONFIG_FILE_NAME_": "mpd-oh.conf",
+                "MPD_BIND_ADDRESS": "0.0.0.0",
+                "MPD_PORT_": "6602",
+                "RESTORE_PAUSED_": "yes",
+                "ENABLE_STATE_FILE_": "yes",
+                "OUTPUT_CREATE": "yes",
+                "OUTPUT_TYPE": "alsa",
+                "OUTPUT_NAME": "DAC",
+                "OUTPUT_ENABLED_": "no",
+                "OUTPUT_DEVICE": "hw:DAC",
+                "OUTPUT_MIXER_TYPE": "software",
+                "OUTPUT_CREATE_1": "yes",
+                "OUTPUT_TYPE_1": "pipewire",
+                "OUTPUT_NAME_1": "Pipewire",
+                "MPD_RUNNING_MODE_": "no-daemon",
+                "MPD_RUN_WITH_STDERR": "yes",
+                "MPD_RUN_WITH_VERBOSE": "no"
+            }
+        }
+    ]
+}
