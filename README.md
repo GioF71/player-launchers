@@ -1,4 +1,4 @@
-# systemd-players
+# player-launchers
 
 Easily configure your players with environment variables, and run them using Python.
 
