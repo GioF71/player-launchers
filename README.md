@@ -127,6 +127,14 @@ systemctl --user start my-mpd-instance
 
 This configuration will create an mpd instance with an alsa output for device `hw:0`.  
 
+## Start services before login
+
+You might want to enable login lingering for your user. Do this using:
+
+```text
+loginctl enable-linger $USER
+```
+
 ## Dependencies
 
 You just need to have Python installed.  
