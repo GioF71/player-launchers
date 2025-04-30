@@ -81,7 +81,51 @@ Indexed variables can be added in multiple instances. For OUTPUT_CREATE, you can
 
 #### Usage examples
 
-Todo.
+##### User-level systemd unit
+
+Create file, named e.g.: `mpd.env` with the following contents:
+
+```text
+MPD_RUNNING_MODE=systemd
+INSTANCE_NAME=mpd-av
+OUTPUT_CREATE=yes
+OUTPUT_TYPE=alsa
+OUTPUT_DEVICE=hw:0
+OUTPUT_MIXER_TYPE=software
+```
+
+Say it's stored in ~/my-config/mpd.env.  
+Say this repository is cloned at the directory `~/git/player-launchers`.  
+Create the system unit with the following contents in `~/.config/systemd/user/my-mpd-instance.service` with the following contents:
+
+```text
+[Unit]
+Description=My MPD instance
+After=network.target network-online.target sound.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=%h/my-config/mpd.env
+ExecStart=%h/git/player-launchers/runner/mpd-runner.py
+
+[Install]
+WantedBy=default.target
+```
+
+Reload systemd using:
+
+```
+systemctl --user daemon-reload
+```
+
+Start the service using:
+
+```
+systemctl --user start my-mpd-instance
+```
+
+This configuration will create an mpd instance with an alsa output for device `hw:0`.  
 
 ## Dependencies
 
