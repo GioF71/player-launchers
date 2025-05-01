@@ -83,7 +83,7 @@ Indexed variables can be added in multiple instances. For OUTPUT_CREATE, you can
 
 ##### User-level systemd unit
 
-Create file, named e.g.: `mpd.env` with the following contents:
+Create a text file, named e.g.: `mpd.env` with the following contents:
 
 ```text
 MPD_RUNNING_MODE=systemd
