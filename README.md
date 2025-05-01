@@ -63,6 +63,7 @@ DECODER_HDCD_CREATE|Creates the hdcd decoder plugin entry, defaults to `yes`
 DECODER_HDCD_ENABLED|Enables hdcd decoder plugin, defaults to `yes`
 DECODER_WILDMIDI_CREATE|Creates the wildmidi decoder plugin entry, defaults to `yes`
 DECODER_WILDMIDI_ENABLED|Enables wildmidi decoder plugin, defaults to `no`
+SAMPLERATE_CONVERTER|Sets `samplerate_converter`, example value is `soxr very high`
 FILESYSTEM_CHARSET|Defaults to `UTF-8`
 OUTPUT_CREATE|Indexed, create an output if set to `yes`
 OUTPUT_ENABLED|Indexed, enables the output if set to `yes`
@@ -76,6 +77,8 @@ OUTPUT_AUTO_RESAMPLE|Output property, valid for `alsa`
 OUTPUT_STOP_DSD_SILENCE|Output property, valid for `alsa`
 OUTPUT_THESYCON_DSD_WORKAROUND|Output property, valid for `alsa`
 OUTPUT_DOP|Output property, valid for `alsa`
+OUTPUT_INTEGER_UPSAMPLING|Ouput property (only in my mpd branch), can be enabled with `yes`
+OUTPUT_INTEGER_UPSAMPLING_ALLOWED|Ouput property (only in my mpd branch), example value: `44100:*:* 48000:*:*`
 
 Indexed variables can be added in multiple instances. For OUTPUT_CREATE, you can create the initial OUTPUT_CREATE, then OUTPUT_CREATE_1, OUTPUT_CREATE_2, etc.
 
