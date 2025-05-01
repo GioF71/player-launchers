@@ -37,7 +37,7 @@ CONFIG_FILE_NAME|Specifies where to write the configuration file. Not recommende
 INSTANCE_NAME|Instance name for mpd, useful when you want to run more than one instance of mpd
 CACHE_DIRECTORY|Specify where to locate the configuration directories for db, playlist, music, etc.
 MPD_BIND_ADDRESS|Bind address, defaults to `[::]`. Multiple value can be provided, separated by a `,`
-MPD_PORT|Port, defaults to `6600`
+MPD_PORT|MPD listen port, defaults to `6600`
 MUSIC_DIRECTORY|Where the music is located, optional
 PLAYLIST_DIRECTORY|Where the playlists are located, optional
 LOG_DIRECTORY|Where the logs are located, optional
