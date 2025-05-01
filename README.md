@@ -2,8 +2,8 @@
 
 Easily configure your players with environment variables, and launch them using Python.
 
-- MPD (Music Player Daemon)
-- squeezelite
+- [Music Player Daemon](https://musicpd.org/)
+- Squeezelite (player for [Lyrion Music Server](https://lyrion.org/))
 
 ## Caveat
 
@@ -25,7 +25,7 @@ SQUEEZELITE_AUDIO_DEVICE|The audio device, optional
 
 Todo.
 
-### MPD
+### MPD (Music Player Daemon)
 
 The script is the file `mpd-runner.py` in the `runner` directory of the repository.  
 The variables you can use are in the following table.
@@ -43,10 +43,10 @@ PLAYLIST_DIRECTORY|Where the playlists are located, optional
 LOG_DIRECTORY|Where the logs are located, optional
 CONFIG_DIRECTORY|Where the config files must be located, optional
 ENABLE_DB_FILE|Enables the DB
-DB_FILE|Name for the DB file
-LOG_LEVEL|Mpd log level
-ENABLE_LOG_FILE|Enables log file
-LOG_FILE_NAME|Log file name
+DB_FILE|Name for the DB file, defaults to `tag_cache`
+LOG_LEVEL|Mpd log level, defaults to `notice`
+ENABLE_LOG_FILE|Enables log file, defaults to `yes`
+LOG_FILE_NAME|Log file name, defaults to `mpd.log`
 PID_FILE|Pid file location, optional
 ENABLE_STICKER_FILE|Enables the sticker file, defaults to `yes`
 STICKER_FILE|Name of the sticker file, defaults to `sticker.sql`
