@@ -160,6 +160,8 @@ class MpdConfKey(Enum):
     OUTPUT_MIXER_INDEX = "mixer_index"
     OUTPUT_MIXER_CONTROL = "mixer_control"
     OUTPUT_STOP_DSD_SILENCE = "stop_dsd_silence"
+    OUTPUT_INTEGER_UPSAMPLING = "integer_upsampling"
+    OUTPUT_INTEGER_UPSAMPLING_ALLOWED = "integer_upsampling_allowed"
 
 
 class OutputType(Enum):
@@ -274,6 +276,10 @@ class EnvironmentVariable(Enum):
     OUTPUT_THESYCON_DSD_WORKAROUND = IndexedEnvironmentVariableData(
         mpd_conf_key=MpdConfKey.OUTPUT_THESYCON_DSD_WORKAROUND.value)
     OUTPUT_DOP = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_DOP.value)
+    OUTPUT_INTEGER_UPSAMPLING = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_INTEGER_UPSAMPLING.value)
+    OUTPUT_INTEGER_UPSAMPLING_ALLOWED = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_INTEGER_UPSAMPLING_ALLOWED.value)
     # pipewire
     OUTPUT_TARGET = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_TARGET.value)
     OUTPUT_REMOTE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_REMOTE.value)
@@ -323,6 +329,8 @@ class AlsaOutputProperty(OutputProperty):
     OUTPUT_STOP_DSD_SILENCE = OutputPropertyData(EnvironmentVariable.OUTPUT_STOP_DSD_SILENCE)
     OUTPUT_THESYCON_DSD_WORKAROUND = OutputPropertyData(EnvironmentVariable.OUTPUT_THESYCON_DSD_WORKAROUND)
     OUTPUT_DOP = OutputPropertyData(EnvironmentVariable.OUTPUT_DOP)
+    OUTPUT_INTEGER_UPSAMPLING = OutputPropertyData(EnvironmentVariable.OUTPUT_INTEGER_UPSAMPLING)
+    OUTPUT_INTEGER_UPSAMPLING_ALLOWED = OutputPropertyData(EnvironmentVariable.OUTPUT_INTEGER_UPSAMPLING_ALLOWED)
 
 
 class PipewireOutputProperty(OutputProperty):
