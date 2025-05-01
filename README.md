@@ -64,9 +64,9 @@ DECODER_HDCD_ENABLED|Enables hdcd decoder plugin, defaults to `yes`
 DECODER_WILDMIDI_CREATE|Creates the wildmidi decoder plugin entry, defaults to `yes`
 DECODER_WILDMIDI_ENABLED|Enables wildmidi decoder plugin, defaults to `no`
 FILESYSTEM_CHARSET|Defaults to `UTF-8`
-OUTPUT_CREATE|Indexed, create an output
-OUTPUT_ENABLED|Indexed, enables the output
-OUTPUT_TYPE|Indexed, specifies output type (`alsa`, `pipewire`, more to come)
+OUTPUT_CREATE|Indexed, create an output if set to `yes`
+OUTPUT_ENABLED|Indexed, enables the output if set to `yes`
+OUTPUT_TYPE|Indexed, specifies output type (valid values are `alsa`, `pipewire`, more to come)
 OUTPUT_MIXER_TYPE|Output mixer type, e.g. `software`
 OUTPUT_DEVICE|Output property, valid for `alsa`
 OUTPUT_MIXER_CONTROL|Output property, valid for `alsa`
