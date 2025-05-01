@@ -1,6 +1,6 @@
 # player-launchers
 
-Easily configure your players with environment variables, and run them using Python.
+Easily configure your players with environment variables, and launch them using Python.
 
 - MPD (Music Player Daemon)
 - squeezelite
