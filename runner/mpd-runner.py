@@ -152,6 +152,7 @@ class MpdConfKey(Enum):
     OUTPUT_MIXER_TYPE = "mixer_type"
     OUTPUT_TARGET = "target"
     OUTPUT_REMOTE = "remote"
+    OUTPUT_AUTO_RESAMPLE = "auto_resample"
 
 
 class OutputType(Enum):
@@ -252,7 +253,7 @@ class EnvironmentVariable(Enum):
     OUTPUT_FORMAT = IndexedEnvironmentVariableData()
     OUTPUT_TARGET = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_TARGET.value)
     OUTPUT_REMOTE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_REMOTE.value)
-    OUTPUT_AUTO_RESAMPLE = IndexedEnvironmentVariableData()
+    OUTPUT_AUTO_RESAMPLE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_AUTO_RESAMPLE.value)
     OUTPUT_STOP_DSD_SILENCE = IndexedEnvironmentVariableData()
     OUTPUT_THESYCON_DSD_WORKAROUND = IndexedEnvironmentVariableData()
     OUTPUT_DOP = IndexedEnvironmentVariableData()
