@@ -42,7 +42,7 @@ MUSIC_DIRECTORY|Where the music is located, optional
 PLAYLIST_DIRECTORY|Where the playlists are located, optional
 LOG_DIRECTORY|Where the logs are located, optional
 CONFIG_DIRECTORY|Where the config files must be located, optional
-ENABLE_DB_FILE|Enables the DB
+ENABLE_DB_FILE|Enables the DB, defaults to `yes`
 DB_FILE|Name for the DB file, defaults to `tag_cache`
 LOG_LEVEL|Mpd log level, defaults to `notice`
 ENABLE_LOG_FILE|Enables log file, defaults to `yes`
