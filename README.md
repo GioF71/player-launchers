@@ -87,7 +87,7 @@ Create file, named e.g.: `mpd.env` with the following contents:
 
 ```text
 MPD_RUNNING_MODE=systemd
-INSTANCE_NAME=mpd-av
+INSTANCE_NAME=my-mpd-instance
 OUTPUT_CREATE=yes
 OUTPUT_TYPE=alsa
 OUTPUT_DEVICE=hw:0
