@@ -153,6 +153,13 @@ class MpdConfKey(Enum):
     OUTPUT_TARGET = "target"
     OUTPUT_REMOTE = "remote"
     OUTPUT_AUTO_RESAMPLE = "auto_resample"
+    OUTPUT_THESYCON_DSD_WORKAROUND = "thesycon_dsd_workaround"
+    OUTPUT_FORMAT = "format"
+    OUTPUT_DOP = "dop"
+    OUTPUT_ALLOWED_FORMATS = "allowed_formats"
+    OUTPUT_MIXER_INDEX = "mixer_index"
+    OUTPUT_MIXER_CONTROL = "mixer_control"
+    OUTPUT_STOP_DSD_SILENCE = "stop_dsd_silence"
 
 
 class OutputType(Enum):
@@ -239,24 +246,6 @@ class EnvironmentVariable(Enum):
     FILESYSTEM_CHARSET = EnvironmentVariableData(
         default_value="UTF-8",
         mpd_conf_key=MpdConfKey.FILESYSTEM_CHARSET.value)
-    # alsa output
-    OUTPUT_CREATE = IndexedEnvironmentVariableData()
-    # most likely people will want to create an alsa output
-    OUTPUT_TYPE = IndexedEnvironmentVariableData(default_value="alsa")
-    OUTPUT_ENABLED = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_ENABLED.value)
-    OUTPUT_NAME = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_NAME.value)
-    OUTPUT_DEVICE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_DEVICE.value)
-    OUTPUT_MIXER_TYPE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MIXER_TYPE.value)
-    OUTPUT_MIXER_CONTROL = IndexedEnvironmentVariableData()
-    OUTPUT_MIXER_INDEX = IndexedEnvironmentVariableData()
-    OUTPUT_ALLOWED_FORMATS = IndexedEnvironmentVariableData()
-    OUTPUT_FORMAT = IndexedEnvironmentVariableData()
-    OUTPUT_TARGET = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_TARGET.value)
-    OUTPUT_REMOTE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_REMOTE.value)
-    OUTPUT_AUTO_RESAMPLE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_AUTO_RESAMPLE.value)
-    OUTPUT_STOP_DSD_SILENCE = IndexedEnvironmentVariableData()
-    OUTPUT_THESYCON_DSD_WORKAROUND = IndexedEnvironmentVariableData()
-    OUTPUT_DOP = IndexedEnvironmentVariableData()
     MPD_RUNNING_MODE = EnvironmentVariableData(
         default_value="no-daemon",
         validator=Validator.MUST_BE_RUNNING_MODE.value)
@@ -266,6 +255,28 @@ class EnvironmentVariable(Enum):
     MPD_RUN_WITH_VERBOSE = EnvironmentVariableData(
         default_value="no",
         validator=Validator.YES_NO_OR_EMPTY.value)
+    # outputs
+    OUTPUT_CREATE = IndexedEnvironmentVariableData()
+    # most likely people will want to create an alsa output
+    OUTPUT_TYPE = IndexedEnvironmentVariableData(default_value="alsa")
+    # common
+    OUTPUT_ENABLED = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_ENABLED.value)
+    OUTPUT_NAME = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_NAME.value)
+    OUTPUT_MIXER_TYPE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MIXER_TYPE.value)
+    OUTPUT_FORMAT = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_FORMAT.value)
+    # alsa
+    OUTPUT_DEVICE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_DEVICE.value)
+    OUTPUT_MIXER_CONTROL = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MIXER_CONTROL.value)
+    OUTPUT_MIXER_INDEX = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MIXER_INDEX)
+    OUTPUT_ALLOWED_FORMATS = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_ALLOWED_FORMATS.value)
+    OUTPUT_AUTO_RESAMPLE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_AUTO_RESAMPLE.value)
+    OUTPUT_STOP_DSD_SILENCE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_STOP_DSD_SILENCE.value)
+    OUTPUT_THESYCON_DSD_WORKAROUND = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_THESYCON_DSD_WORKAROUND.value)
+    OUTPUT_DOP = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_DOP.value)
+    # pipewire
+    OUTPUT_TARGET = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_TARGET.value)
+    OUTPUT_REMOTE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_REMOTE.value)
 
     @property
     def indexed(self) -> bool:
