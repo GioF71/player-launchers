@@ -94,9 +94,7 @@ OUTPUT_DEVICE=hw:0
 OUTPUT_MIXER_TYPE=software
 ```
 
-Say you store it as `~/my-config/mpd.env`.  
-Say this repository is cloned at the directory `~/git/player-launchers`.  
-Create the system unit with the following contents in `~/.config/systemd/user/my-mpd-instance.service` with the following contents:
+Assuming that you save that file as `~/my-config/mpd.env` and that this repository is cloned at the directory `~/git/player-launchers`, create the user-level systemd unit with the following contents in `~/.config/systemd/user/my-mpd-instance.service` with the following contents:
 
 ```text
 [Unit]
