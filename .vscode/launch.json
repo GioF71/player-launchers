@@ -42,7 +42,8 @@
                 "OUTPUT_NAME_1": "Pipewire",
                 "MPD_RUNNING_MODE_": "no-daemon",
                 "MPD_RUN_WITH_STDERR": "yes",
-                "MPD_RUN_WITH_VERBOSE": "no"
+                "MPD_RUN_WITH_VERBOSE": "no",
+                "SAMPLERATE_CONVERTER": "soxr very high"
             }
         }
     ]

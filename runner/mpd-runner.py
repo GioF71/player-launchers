@@ -145,6 +145,7 @@ class MpdConfKey(Enum):
     PID_FILE = "pid_file"
     BIND_TO_ADDRESS = "bind_to_address"
     PORT = "port"
+    SAMPLERATE_CONVERTER = "samplerate_converter"
     FILESYSTEM_CHARSET = "filesystem_charset"
     OUTPUT_NAME = "name"
     OUTPUT_ENABLED = "enabled"
@@ -222,6 +223,7 @@ class EnvironmentVariable(Enum):
     INPUT_CURL_ENABLED = EnvironmentVariableData(
         default_value="yes",
         validator=Validator.YES_NO_OR_EMPTY.value)
+    SAMPLERATE_CONVERTER = EnvironmentVariableData(mpd_conf_key=MpdConfKey.SAMPLERATE_CONVERTER.value)
     # opus decoder, might have issues for streaming,
     # so we disable it by default (ffmpeg should replace its functionality)
     DECODER_OPUS_CREATE = EnvironmentVariableData(
@@ -647,6 +649,7 @@ def write_config_file() -> str:
                         if v:
                             properties[p.env_var.mpd_conf_key] = v
                 write_output(f=f, output_type=output_type, properties=properties)
+        write_variable(f=f, env_var=EnvironmentVariable.SAMPLERATE_CONVERTER)
         write_variable(f=f, env_var=EnvironmentVariable.FILESYSTEM_CHARSET)
         f.close()
     return str(config_file)
