@@ -30,6 +30,8 @@ Todo.
 The script is the file `mpd-runner.py` in the `runner` directory of the repository.  
 The variables you can use are in the following table.
 
+#### MPD Variables
+
 VARIABLE|DESCRIPTION
 :---|:---
 MPD_BINARY_PATH|Where mpd is located, defaults to `/usr/bin/mpd`
@@ -67,20 +69,63 @@ SAMPLERATE_CONVERTER|Sets `samplerate_converter`, example value is `soxr very hi
 FILESYSTEM_CHARSET|Defaults to `UTF-8`
 OUTPUT_CREATE|Indexed, create an output if set to `yes`
 OUTPUT_ENABLED|Indexed, enables the output if set to `yes`
-OUTPUT_TYPE|Indexed, specifies output type (valid values are `alsa`, `pipewire`, more to come)
-OUTPUT_MIXER_TYPE|Output mixer type, e.g. `software`
-OUTPUT_DEVICE|Output property, valid for `alsa`
-OUTPUT_MIXER_CONTROL|Output property, valid for `alsa`
-OUTPUT_MIXER_INDEX|Output property, valid for `alsa`
-OUTPUT_ALLOWED_FORMATS|Output property, valid for `alsa`
-OUTPUT_AUTO_RESAMPLE|Output property, valid for `alsa`
-OUTPUT_STOP_DSD_SILENCE|Output property, valid for `alsa`
-OUTPUT_THESYCON_DSD_WORKAROUND|Output property, valid for `alsa`
-OUTPUT_DOP|Output property, valid for `alsa`
-OUTPUT_INTEGER_UPSAMPLING|Ouput property (only in my mpd branch), can be enabled with `yes`
-OUTPUT_INTEGER_UPSAMPLING_ALLOWED|Ouput property (only in my mpd branch), example value: `44100:*:* 48000:*:*`
+OUTPUT_TYPE|Indexed, specifies output type (valid values are `alsa`, `pipewire`, `pulse`, `null`, more to come)
+OUTPUT_NAME|Indexed, specifies output name (automatically generated if not set)
 
 Indexed variables can be added in multiple instances. For OUTPUT_CREATE, you can create the initial OUTPUT_CREATE, then OUTPUT_CREATE_1, OUTPUT_CREATE_2, etc.
+
+##### Alsa Output
+
+See the alsa-specific env variables:
+
+VARIABLE|DESCRIPTION
+:---|:---
+OUTPUT_DEVICE|Output device, example: `hw:1,0`
+OUTPUT_BUFFER_TIME|Output buffer time in microseconds
+OUTPUT_PERIOD_TIME|Output period time in microseconds
+OUTPUT_AUTO_RESAMPLE|Disables resampling if set to `no`
+OUTPUT_AUTO_CHANNELS|Disables channel conversions if set to `no`
+OUTPUT_AUTO_FORMAT|Disables sample format conversion if set to `no`
+OUTPUT_DOP|Output property, valid for `alsa`
+OUTPUT_STOP_DSD_SILENCE|Output property, valid for `alsa`
+OUTPUT_THESYCON_DSD_WORKAROUND|Output property, valid for `alsa`
+OUTPUT_ALLOWED_FORMATS|Output property, valid for `alsa`
+OUTPUT_CLOSE_ON_PAUSE|Close the device while playback is paused, defaults to `yes`
+OUTPUT_DEFAULT_FORMAT|Output default format, example `44100:16:2`
+OUTPUT_MIXER_TYPE|Output mixer type, e.g. `software`
+OUTPUT_MIXER_CONTROL|Mixer control
+OUTPUT_MIXER_INDEX|Mixer index
+OUTPUT_INTEGER_UPSAMPLING|Ouput property (only in my mpd branch), can be enabled with `yes`
+OUTPUT_INTEGER_UPSAMPLING_ALLOWED|Ouput property (only in my mpd branch), specifies the formats that are subject to integer upsampling, example value: `44100:*:* 48000:*:*`
+
+##### Pipewire Output
+
+See the pipewire-specific env variables:
+
+VARIABLE|DESCRIPTION
+:---|:---
+OUTPUT_TARGET|Output target
+OUTPUT_REMOTE|Output remote
+OUTPUT_DSD|Output dsd
+
+##### PulseAudio Output
+
+See the pulseaudio-specific env variables:
+
+VARIABLE|DESCRIPTION
+:---|:---
+OUTPUT_HOSTNAME|Output hostname
+OUTPUT_SINK|Output sink
+OUTPUT_ROLE|Output role
+OUTPUT_FACTOR|Output factor
+
+##### Null Output
+
+See the pulseaudio-specific env variables:
+
+VARIABLE|DESCRIPTION
+:---|:---
+OUTPUT_SYNC|Output sync
 
 #### Usage examples
 

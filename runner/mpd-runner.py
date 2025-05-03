@@ -153,7 +153,14 @@ class MpdConfKey(Enum):
     OUTPUT_MIXER_TYPE = "mixer_type"
     OUTPUT_TARGET = "target"
     OUTPUT_REMOTE = "remote"
+    OUTPUT_DSD = "dsd"
+    OUTPUT_BUFFER_TIME = "buffer_time"
+    OUTPUT_PERIOD_TIME = "period_time"
+    OUTPUT_CLOSE_ON_PAUSE = "close_on_pause"
+    OUTPUT_DEFAULT_FORMAT = "default_format"
     OUTPUT_AUTO_RESAMPLE = "auto_resample"
+    OUTPUT_AUTO_CHANNELS = "auto_channels"
+    OUTPUT_AUTO_FORMAT = "auto_format"
     OUTPUT_THESYCON_DSD_WORKAROUND = "thesycon_dsd_workaround"
     OUTPUT_FORMAT = "format"
     OUTPUT_DOP = "dop"
@@ -161,16 +168,13 @@ class MpdConfKey(Enum):
     OUTPUT_MIXER_INDEX = "mixer_index"
     OUTPUT_MIXER_CONTROL = "mixer_control"
     OUTPUT_STOP_DSD_SILENCE = "stop_dsd_silence"
+    OUTPUT_HOSTNAME = "hostname"
+    OUTPUT_SINK = "sink"
+    OUTPUT_MEDIA_ROLE = "media_role"
+    OUTPUT_SCALE_FACTOR = "scale_factor"
+    OUTPUT_SYNC = "sync"
     OUTPUT_INTEGER_UPSAMPLING = "integer_upsampling"
     OUTPUT_INTEGER_UPSAMPLING_ALLOWED = "integer_upsampling_allowed"
-
-
-class OutputType(Enum):
-    ALSA = "alsa"
-    PIPEWIRE = "pipewire"
-    PULSE = "pulse"
-    NULL = "null"
-    HTTPD = "httpd"
 
 
 class EnvironmentVariable(Enum):
@@ -273,18 +277,52 @@ class EnvironmentVariable(Enum):
     OUTPUT_MIXER_CONTROL = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MIXER_CONTROL.value)
     OUTPUT_MIXER_INDEX = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MIXER_INDEX)
     OUTPUT_ALLOWED_FORMATS = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_ALLOWED_FORMATS.value)
-    OUTPUT_AUTO_RESAMPLE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_AUTO_RESAMPLE.value)
-    OUTPUT_STOP_DSD_SILENCE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_STOP_DSD_SILENCE.value)
+    OUTPUT_AUTO_RESAMPLE = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_AUTO_RESAMPLE.value,
+        validator=Validator.YES_NO_OR_EMPTY.value)
+    OUTPUT_AUTO_CHANNELS = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_AUTO_CHANNELS.value,
+        validator=Validator.YES_NO_OR_EMPTY.value)
+    OUTPUT_AUTO_FORMAT = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_AUTO_FORMAT.value,
+        validator=Validator.YES_NO_OR_EMPTY.value)
+    OUTPUT_BUFFER_TIME = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_BUFFER_TIME.value)
+    OUTPUT_CLOSE_ON_PAUSE = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_CLOSE_ON_PAUSE.value)
+    OUTPUT_PERIOD_TIME = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_PERIOD_TIME.value)
+    OUTPUT_DEFAULT_FORMAT = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_DEFAULT_FORMAT.value)
+    OUTPUT_STOP_DSD_SILENCE = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_STOP_DSD_SILENCE.value,
+        validator=Validator.YES_NO_OR_EMPTY.value)
     OUTPUT_THESYCON_DSD_WORKAROUND = IndexedEnvironmentVariableData(
-        mpd_conf_key=MpdConfKey.OUTPUT_THESYCON_DSD_WORKAROUND.value)
-    OUTPUT_DOP = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_DOP.value)
+        mpd_conf_key=MpdConfKey.OUTPUT_THESYCON_DSD_WORKAROUND.value,
+        validator=Validator.YES_NO_OR_EMPTY.value)
+    OUTPUT_DOP = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_DOP.value,
+        validator=Validator.YES_NO_OR_EMPTY.value)
     OUTPUT_INTEGER_UPSAMPLING = IndexedEnvironmentVariableData(
-        mpd_conf_key=MpdConfKey.OUTPUT_INTEGER_UPSAMPLING.value)
+        mpd_conf_key=MpdConfKey.OUTPUT_INTEGER_UPSAMPLING.value,
+        validator=Validator.YES_NO_OR_EMPTY.value)
     OUTPUT_INTEGER_UPSAMPLING_ALLOWED = IndexedEnvironmentVariableData(
         mpd_conf_key=MpdConfKey.OUTPUT_INTEGER_UPSAMPLING_ALLOWED.value)
     # pipewire
     OUTPUT_TARGET = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_TARGET.value)
     OUTPUT_REMOTE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_REMOTE.value)
+    OUTPUT_DSD = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_DSD.value,
+        validator=Validator.YES_NO_OR_EMPTY.value)
+    OUTPUT_HOSTNAME = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_HOSTNAME.value)
+    OUTPUT_SINK = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_SINK.value,
+        validator=Validator.YES_NO_OR_EMPTY.value)
+    OUTPUT_MEDIA_ROLE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MEDIA_ROLE.value)
+    OUTPUT_SCALE_FACTOR = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_SCALE_FACTOR.value)
+    OUTPUT_SYNC = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_SYNC.value,
+        validator=Validator.YES_NO_OR_EMPTY.value)
 
     @property
     def indexed(self) -> bool:
@@ -328,6 +366,12 @@ class AlsaOutputProperty(OutputProperty):
     OUTPUT_ALLOWED_FORMATS = OutputPropertyData(EnvironmentVariable.OUTPUT_ALLOWED_FORMATS)
     OUTPUT_FORMAT = OutputPropertyData(EnvironmentVariable.OUTPUT_FORMAT)
     OUTPUT_AUTO_RESAMPLE = OutputPropertyData(EnvironmentVariable.OUTPUT_AUTO_RESAMPLE)
+    OUTPUT_AUTO_CHANNELS = OutputPropertyData(EnvironmentVariable.OUTPUT_AUTO_CHANNELS)
+    OUTPUT_AUTO_FORMAT = OutputPropertyData(EnvironmentVariable.OUTPUT_AUTO_FORMAT)
+    OUTPUT_BUFFER_TIME = OutputPropertyData(EnvironmentVariable.OUTPUT_BUFFER_TIME)
+    OUTPUT_PERIOD_TIME = OutputPropertyData(EnvironmentVariable.OUTPUT_PERIOD_TIME)
+    OUTPUT_CLOSE_ON_PAUSE = OutputPropertyData(EnvironmentVariable.OUTPUT_CLOSE_ON_PAUSE)
+    OUTPUT_DEFAULT_FORMAT = OutputPropertyData(EnvironmentVariable.OUTPUT_DEFAULT_FORMAT)
     OUTPUT_STOP_DSD_SILENCE = OutputPropertyData(EnvironmentVariable.OUTPUT_STOP_DSD_SILENCE)
     OUTPUT_THESYCON_DSD_WORKAROUND = OutputPropertyData(EnvironmentVariable.OUTPUT_THESYCON_DSD_WORKAROUND)
     OUTPUT_DOP = OutputPropertyData(EnvironmentVariable.OUTPUT_DOP)
@@ -338,6 +382,61 @@ class AlsaOutputProperty(OutputProperty):
 class PipewireOutputProperty(OutputProperty):
     OUTPUT_TARGET = OutputPropertyData(EnvironmentVariable.OUTPUT_TARGET)
     OUTPUT_REMOTE = OutputPropertyData(EnvironmentVariable.OUTPUT_REMOTE)
+    OUTPUT_DSD = OutputPropertyData(EnvironmentVariable.OUTPUT_DSD)
+
+
+class PulseOutputProperty(OutputProperty):
+    OUTPUT_HOSTNAME = OutputPropertyData(EnvironmentVariable.OUTPUT_HOSTNAME)
+    OUTPUT_SINK = OutputPropertyData(EnvironmentVariable.OUTPUT_SINK)
+    OUTPUT_MEDIA_ROLE = OutputPropertyData(EnvironmentVariable.OUTPUT_MEDIA_ROLE)
+    OUTPUT_SCALE_FACTOR = OutputPropertyData(EnvironmentVariable.OUTPUT_SCALE_FACTOR)
+
+
+class HttpdOutputProperty(OutputProperty):
+    pass
+
+
+class NullOutputProperty(OutputProperty):
+    OUTPUT_SYNC = OutputPropertyData(EnvironmentVariable.OUTPUT_SYNC)
+
+
+class OutputTypeData:
+
+    def __init__(self, output_type_name: str, enum_type: type):
+        self.__output_type_name: str = output_type_name
+        self.__enum_type: type = enum_type
+
+    @property
+    def output_type_name(self) -> str:
+        return self.__output_type_name
+
+    @property
+    def enum_type(self) -> type:
+        return self.__enum_type
+
+
+class OutputType(Enum):
+    ALSA = OutputTypeData(output_type_name="alsa", enum_type=AlsaOutputProperty)
+    PIPEWIRE = OutputTypeData(output_type_name="pipewire", enum_type=PipewireOutputProperty)
+    PULSE = OutputTypeData(output_type_name="pulse", enum_type=PulseOutputProperty)
+    NULL = OutputTypeData(output_type_name="null", enum_type=NullOutputProperty)
+    HTTPD = OutputTypeData(output_type_name="httpd", enum_type=HttpdOutputProperty)
+
+    @property
+    def output_type_name(self) -> str:
+        return self.value.output_type_name
+
+    @property
+    def enum_type(self) -> type:
+        return self.value.enum_type
+
+
+def get_output_properties_by_name(output_type_name: str) -> list[OutputProperty]:
+    for ot in OutputType:
+        if ot.output_type_name == output_type_name:
+            enum_type: type = ot.enum_type
+            return list(map(lambda x: x, enum_type))
+    return None
 
 
 def get_env_variable(env_var: EnvironmentVariable) -> str:
@@ -353,7 +452,9 @@ def get_env_variable_as_bool(env_var: EnvironmentVariable) -> bool:
 
 def get_indexed_env_variable(env_var: EnvironmentVariable, index: int = 0) -> bool:
     key: str = f"{env_var.name}{'_' + str(index) if index > 0 else ''}"
-    v: str = os.getenv(key)
+    v: str = os.getenv(key, env_var.default_value)
+    if v and env_var.validator:
+        v = env_var.validator(v)
     return v
 
 
@@ -614,13 +715,13 @@ def write_config_file() -> str:
             create=EnvironmentVariable.DECODER_WILDMIDI_CREATE,
             enabled=EnvironmentVariable.DECODER_WILDMIDI_ENABLED)
         # outputs!
-        max_outputs: int = 50
+        max_outputs: int = 100
         for i in range(0, max_outputs):
-            output_is_set: str = get_indexed_env_variable(env_var=EnvironmentVariable.OUTPUT_CREATE, index=i)
-            if not output_is_set:
-                break
+            # output_is_set: str = get_indexed_env_variable(env_var=EnvironmentVariable.OUTPUT_CREATE, index=i)
+            # if not output_is_set:
+            #     break
             output_create: bool = get_indexed_env_variable_as_bool(env_var=EnvironmentVariable.OUTPUT_CREATE, index=i)
-            print(f"Output [{i}] must be created: [{output_create}]")
+            # print(f"Output [{i}] must be created: [{'yes' if output_create is True else 'no'}]")
             if output_create:
                 output_type: str = Validator.MUST_BE_OUTPUT_TYPE.value(get_indexed_env_variable(
                     env_var=EnvironmentVariable.OUTPUT_TYPE,
@@ -636,18 +737,11 @@ def write_config_file() -> str:
                 if enabled:
                     properties[EnvironmentVariable.OUTPUT_ENABLED.mpd_conf_key] = ("yes" if enabled.lower() == "yes"
                                                                                    else "no")
-                if OutputType.ALSA.value == output_type:
-                    a: AlsaOutputProperty
-                    for a in AlsaOutputProperty:
-                        v: str = get_indexed_env_variable(env_var=a.env_var, index=i)
-                        if v:
-                            properties[a.env_var.mpd_conf_key] = v
-                elif OutputType.PIPEWIRE.value == output_type:
-                    p: PipewireOutputProperty
-                    for p in PipewireOutputProperty:
-                        v: str = get_indexed_env_variable(env_var=p.env_var, index=i)
-                        if v:
-                            properties[p.env_var.mpd_conf_key] = v
+                property_list: list = get_output_properties_by_name(output_type)
+                for p in property_list:
+                    v: str = get_indexed_env_variable(env_var=p.env_var, index=i)
+                    if v:
+                        properties[p.env_var.mpd_conf_key] = v
                 write_output(f=f, output_type=output_type, properties=properties)
         write_variable(f=f, env_var=EnvironmentVariable.SAMPLERATE_CONVERTER)
         write_variable(f=f, env_var=EnvironmentVariable.FILESYSTEM_CHARSET)
@@ -671,7 +765,7 @@ def must_be_int(v: str) -> str:
 
 def must_be_output_type(v: str) -> str:
     for ot in OutputType:
-        if ot.value == v:
+        if ot.value.output_type_name == v:
             return v
     raise NotAnOutputType(f"Value [{v}] is not an output type")
 
