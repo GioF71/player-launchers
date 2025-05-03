@@ -121,7 +121,7 @@ OUTPUT_FACTOR|Output factor
 
 ##### Null Output
 
-See the pulseaudio-specific env variables:
+See the null-specific env variables:
 
 VARIABLE|DESCRIPTION
 :---|:---
