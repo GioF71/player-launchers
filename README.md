@@ -189,4 +189,5 @@ You just need to have Python installed.
 
 DATE|COMMENT
 :---|:---
+2025-05-03|Extended alsa, pipewire, pulse and null support
 2025-04-30|First public release
