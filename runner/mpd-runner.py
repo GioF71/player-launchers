@@ -7,6 +7,8 @@ import subprocess
 from typing import Callable
 from enum import Enum
 
+import exceptions
+
 
 class RequiredVariable(Exception):
     pass
@@ -21,14 +23,6 @@ class MustBeDirectory(Exception):
 
 
 class NoHomePath(Exception):
-    pass
-
-
-class NotAnIntegerValue(Exception):
-    pass
-
-
-class NotYesNoOrEmpty(Exception):
     pass
 
 
@@ -752,7 +746,7 @@ def write_config_file() -> str:
 def yes_no_or_empty(v: str) -> str:
     if not v or (v.lower() in ['yes', 'no']):
         return v
-    raise NotYesNoOrEmpty(f"Value [{v}] must be empty or one between 'yes' and 'no'")
+    raise exceptions.NotYesNoOrEmpty(f"Value [{v}] must be empty or one between 'yes' and 'no'")
 
 
 def must_be_int(v: str) -> str:
@@ -760,7 +754,7 @@ def must_be_int(v: str) -> str:
         int_v: int = int(v)
         return str(int_v)
     except ValueError:
-        raise NotAnIntegerValue(f"Value [{v}] is not an integer")
+        raise exceptions.NotAnIntegerValue(f"Value [{v}] is not an integer")
 
 
 def must_be_output_type(v: str) -> str:

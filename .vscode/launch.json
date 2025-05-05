@@ -8,8 +8,12 @@
             "program": "${workspaceFolder}/runner/sq-runner.py",
             "console": "integratedTerminal",
             "env": {
-                "SQUEEZELITE_AUDIO_DEVICE": "hw:CARD=PCH",
-                "SQUEEZELITE_SERVER_PORT": "lms.homelab.local"
+                "SQUEEZELITE_AUDIO_DEVICE": "hw:CARD=DAC",
+                "SQUEEZELITE_SERVER_PORT": "lms.homelab.local",
+                "SQUEEZELITE_LINEAR_VOLUME": "no",
+                "SQUEEZELITE_RESTART_ON_FAIL": "yes",
+                "SQUEEZELITE_NAME": "Aune X1s Vanilla",
+                "SQUEEZELITE_MODEL": "SqueezeLite"
             }
         },
         {

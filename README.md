@@ -16,10 +16,17 @@ This project is in the early development stages. Documentation might be incomple
 The script is the file `sq-runner.py` in the `runner` directory of the repository.  
 This one is currently very limited, and will support just a handful of environment variables.  
 
-VARIABLE|DESCRIPTION
-:---|:---
-SQUEEZELITE_SERVER_PORT|The server and port, optional
-SQUEEZELITE_AUDIO_DEVICE|The audio device, optional
+VARIABLE|SWITCH|DESCRIPTION
+:---|:---:|:---
+SQUEEZELITE_BINARY||Path of the SqueezeLite binary, defaults to `/usr/bin/squeezelite`
+SQUEEZELITE_RESTART_ON_FAIL||Restart in case of failure if set to `yes`
+SQUEEZELITE_RESTART_DELAY||Delay between a new restart in seconds, defaults to `3`
+SQUEEZELITE_SERVER_PORT|-s|The server and port, optional
+SQUEEZELITE_AUDIO_DEVICE|-o|The audio device, optional
+SQUEEZELITE_NAME|-n|Name of the Squeezelite player
+SQUEEZELITE_MODEL|-M|Model name of the Squeezelite player
+SQUEEZELITE_TIMEOUT|-C|Timeout in seconds, defaults to `3`
+SQUEEZELITE_LINEAR_VOLUME|-X|Use linear volume if set to `yes`
 
 #### Usage examples
 
