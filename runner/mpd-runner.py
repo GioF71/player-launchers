@@ -230,6 +230,12 @@ class EnvironmentVariable(Enum):
     DECODER_OPUS_ENABLED = EnvironmentVariableData(
         default_value="no",
         validator=Validator.YES_NO_OR_EMPTY.value)
+    DECODER_FFMPEG_CREATE = EnvironmentVariableData(
+        default_value="no",
+        validator=Validator.YES_NO_OR_EMPTY.value)
+    DECODER_FFMPEG_ENABLED = EnvironmentVariableData(
+        default_value="no",
+        validator=Validator.YES_NO_OR_EMPTY.value)
     # hdcd support, enabled by default
     DECODER_HDCD_CREATE = EnvironmentVariableData(
         default_value="yes",
@@ -696,6 +702,12 @@ def write_config_file() -> str:
             plugin_name="opus",
             create=EnvironmentVariable.DECODER_OPUS_CREATE,
             enabled=EnvironmentVariable.DECODER_OPUS_ENABLED)
+        write_simple_plugin(
+            f=f,
+            plugin_type="decoder",
+            plugin_name="ffmpeg",
+            create=EnvironmentVariable.DECODER_FFMPEG_CREATE,
+            enabled=EnvironmentVariable.DECODER_FFMPEG_ENABLED)
         write_simple_plugin(
             f=f,
             plugin_type="decoder",

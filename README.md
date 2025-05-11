@@ -68,6 +68,8 @@ MPD_RUN_WITH_STDERR|Run with `--stderr`
 MPD_RUN_WITH_VERBOSE|Run with `--verbose`
 INPUT_CURL_CREATE|Creates the curl input plugin entry, defaults to `yes`
 INPUT_CURL_ENABLED|Enables curl input plugin, defaults to `yes`
+DECODER_FFMPEG_CREATE|Creates the ffmpeg decoder plugin entry, defaults to `no`
+DECODER_FFMPEG_ENABLED|Enables ffmpeg decoder plugin, defaults to `no`
 DECODER_HDCD_CREATE|Creates the hdcd decoder plugin entry, defaults to `yes`
 DECODER_HDCD_ENABLED|Enables hdcd decoder plugin, defaults to `yes`
 DECODER_WILDMIDI_CREATE|Creates the wildmidi decoder plugin entry, defaults to `yes`
