@@ -128,6 +128,24 @@ OUTPUT_SINK|Output sink
 OUTPUT_ROLE|Output role
 OUTPUT_FACTOR|Output factor
 
+##### HTTPD Output
+
+See the httpd-specific env variables:
+
+VARIABLE|DESCRIPTION
+:---|:---
+OUTPUT_PORT|Output port
+OUTPUT_BIND_TO_ADDRESS|Output bind to address
+OUTPUT_DSCP_CLASS|Output dscp class
+OUTPUT_FORMAT|Output format, e.g. 44100:16:2
+OUTPUT_ENCODER|Output encoder, e.g. lame, ogg, flac, defaults to `lame`
+OUTPUT_BITRATE|Output bitrate
+OUTPUT_QUALITY|Output quality
+OUTPUT_MAX_CLIENTS|Output max clients
+OUTPUT_GENRE|Output genre
+OUTPUT_WEBSITE|Output website
+OUTPUT_ALWAYS_ON|Output always on, defaults to `yes`
+
 ##### Null Output
 
 See the null-specific env variables:

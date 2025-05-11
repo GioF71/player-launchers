@@ -169,6 +169,16 @@ class MpdConfKey(Enum):
     OUTPUT_SYNC = "sync"
     OUTPUT_INTEGER_UPSAMPLING = "integer_upsampling"
     OUTPUT_INTEGER_UPSAMPLING_ALLOWED = "integer_upsampling_allowed"
+    OUTPUT_PORT = "port"
+    OUTPUT_BIND_TO_ADDRESS = "bind_to_address"
+    OUTPUT_DSCP_CLASS = "dscp_class"
+    OUTPUT_ENCODER = "encoder"
+    OUTPUT_BITRATE = "bitrate"
+    OUTPUT_QUALITY = "quality"
+    OUTPUT_MAX_CLIENTS = "max_clients"
+    OUTPUT_GENRE = "genre"
+    OUTPUT_WEBSITE = "website"
+    OUTPUT_ALWAYS_ON = "always_on"
 
 
 class EnvironmentVariable(Enum):
@@ -323,6 +333,17 @@ class EnvironmentVariable(Enum):
     OUTPUT_SYNC = IndexedEnvironmentVariableData(
         mpd_conf_key=MpdConfKey.OUTPUT_SYNC.value,
         validator=Validator.YES_NO_OR_EMPTY.value)
+    # httpd
+    OUTPUT_PORT = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_PORT.value)
+    OUTPUT_BIND_TO_ADDRESS = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_BIND_TO_ADDRESS.value)
+    OUTPUT_DSCP_CLASS = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_DSCP_CLASS.value)
+    OUTPUT_ENCODER = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_ENCODER.value, default_value="lame")
+    OUTPUT_BITRATE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_BITRATE.value)
+    OUTPUT_QUALITY = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_QUALITY.value)
+    OUTPUT_MAX_CLIENTS = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MAX_CLIENTS.value)
+    OUTPUT_GENRE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_GENRE.value)
+    OUTPUT_WEBSITE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_WEBSITE.value, default_value="yes")
+    OUTPUT_ALWAYS_ON = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_ALWAYS_ON.value)
 
     @property
     def indexed(self) -> bool:
@@ -393,7 +414,17 @@ class PulseOutputProperty(OutputProperty):
 
 
 class HttpdOutputProperty(OutputProperty):
-    pass
+    OUTPUT_PORT = OutputPropertyData(EnvironmentVariable.OUTPUT_PORT)
+    OUTPUT_BIND_TO_ADDRESS = OutputPropertyData(EnvironmentVariable.OUTPUT_BIND_TO_ADDRESS)
+    OUTPUT_DSCP_CLASS = OutputPropertyData(EnvironmentVariable.OUTPUT_DSCP_CLASS)
+    OUTPUT_FORMAT = OutputPropertyData(EnvironmentVariable.OUTPUT_FORMAT)
+    OUTPUT_ENCODER = OutputPropertyData(EnvironmentVariable.OUTPUT_ENCODER)
+    OUTPUT_BITRATE = OutputPropertyData(EnvironmentVariable.OUTPUT_BITRATE)
+    OUTPUT_QUALITY = OutputPropertyData(EnvironmentVariable.OUTPUT_QUALITY)
+    OUTPUT_MAX_CLIENTS = OutputPropertyData(EnvironmentVariable.OUTPUT_MAX_CLIENTS)
+    OUTPUT_GENRE = OutputPropertyData(EnvironmentVariable.OUTPUT_GENRE)
+    OUTPUT_WEBSITE = OutputPropertyData(EnvironmentVariable.OUTPUT_WEBSITE)
+    OUTPUT_ALWAYS_ON = OutputPropertyData(EnvironmentVariable.OUTPUT_ALWAYS_ON)
 
 
 class NullOutputProperty(OutputProperty):
