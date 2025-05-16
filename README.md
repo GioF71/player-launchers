@@ -139,6 +139,9 @@ OUTPUT_BIND_TO_ADDRESS|Output bind to address
 OUTPUT_DSCP_CLASS|Output dscp class
 OUTPUT_FORMAT|Output format, e.g. 44100:16:2
 OUTPUT_ENCODER|Output encoder, e.g. lame, ogg, flac, defaults to `lame`
+OUTPUT_COMPRESSION|Output compression, for `flac`, values are `0` to `8`
+OUTPUT_OGGFLAC|Output setting for ogg, enables ogg flac if set to `yes`
+OUTPUT_OGGCHAINING|Output setting for ogg flac, enables ogg chaining for in-stream metadata if set to `yes`
 OUTPUT_BITRATE|Output bitrate
 OUTPUT_QUALITY|Output quality
 OUTPUT_MAX_CLIENTS|Output max clients

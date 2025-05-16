@@ -173,6 +173,9 @@ class MpdConfKey(Enum):
     OUTPUT_BIND_TO_ADDRESS = "bind_to_address"
     OUTPUT_DSCP_CLASS = "dscp_class"
     OUTPUT_ENCODER = "encoder"
+    OUTPUT_OGGFLAC = "oggflac"
+    OUTPUT_OGGCHAINING = "oggchaining"
+    OUTPUT_COMPRESSION = "compression"
     OUTPUT_BITRATE = "bitrate"
     OUTPUT_QUALITY = "quality"
     OUTPUT_MAX_CLIENTS = "max_clients"
@@ -338,6 +341,9 @@ class EnvironmentVariable(Enum):
     OUTPUT_BIND_TO_ADDRESS = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_BIND_TO_ADDRESS.value)
     OUTPUT_DSCP_CLASS = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_DSCP_CLASS.value)
     OUTPUT_ENCODER = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_ENCODER.value, default_value="lame")
+    OUTPUT_COMPRESSION = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_COMPRESSION.value)
+    OUTPUT_OGGFLAC = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_OGGFLAC.value)
+    OUTPUT_OGGCHAINING = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_OGGCHAINING.value)
     OUTPUT_BITRATE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_BITRATE.value)
     OUTPUT_QUALITY = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_QUALITY.value)
     OUTPUT_MAX_CLIENTS = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MAX_CLIENTS.value)
@@ -419,6 +425,9 @@ class HttpdOutputProperty(OutputProperty):
     OUTPUT_DSCP_CLASS = OutputPropertyData(EnvironmentVariable.OUTPUT_DSCP_CLASS)
     OUTPUT_FORMAT = OutputPropertyData(EnvironmentVariable.OUTPUT_FORMAT)
     OUTPUT_ENCODER = OutputPropertyData(EnvironmentVariable.OUTPUT_ENCODER)
+    OUTPUT_OGGFLAC = OutputPropertyData(EnvironmentVariable.OUTPUT_OGGFLAC)
+    OUTPUT_OGGCHAINING = OutputPropertyData(EnvironmentVariable.OUTPUT_OGGCHAINING)
+    OUTPUT_COMPRESSION = OutputPropertyData(EnvironmentVariable.OUTPUT_COMPRESSION)
     OUTPUT_BITRATE = OutputPropertyData(EnvironmentVariable.OUTPUT_BITRATE)
     OUTPUT_QUALITY = OutputPropertyData(EnvironmentVariable.OUTPUT_QUALITY)
     OUTPUT_MAX_CLIENTS = OutputPropertyData(EnvironmentVariable.OUTPUT_MAX_CLIENTS)
