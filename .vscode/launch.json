@@ -45,6 +45,8 @@
                 "OUTPUT_ENABLED_": "no",
                 "OUTPUT_DEVICE_1": "hw:DAC",
                 "OUTPUT_MIXER_TYPE_1": "software",
+                "_OUTPUT_MIXER_INDEX_1": "1",
+                "_OUTPUT_MIXER_CONTROL_1": "c",
                 "OUTPUT_CREATE_2": "yes",
                 "OUTPUT_TYPE_2": "pipewire",
                 "OUTPUT_NAME_2": "Out2: Pipewire",
@@ -56,7 +58,17 @@
                 "MPD_RUNNING_MODE_": "no-daemon",
                 "MPD_RUN_WITH_STDERR": "yes",
                 "MPD_RUN_WITH_VERBOSE": "no",
-                "SAMPLERATE_CONVERTER": "soxr very high"
+                "_SAMPLERATE_CONVERTER": "soxr very high",
+                "RESAMPLER_SOXR_CREATE": "yes",
+                "SOXR_QUALITY": "custom",
+                "SOXR_PRECISION": "28",
+                "SOXR_PHASE_RESPONSE": "45",
+                "SOXR_PASSBAND_END": "95.0",
+                "SOXR_STOPBAND_BEGIN": "100.0",
+                "SOXR_ATTENUATION": "1.0",
+                "SOXR_FLAGS": "0",
+                "DECODER_FFMPEG_CREATE": "yes",
+                "DECODER_FFMPEG_ENABLED": "yes"
             }
         }
     ]

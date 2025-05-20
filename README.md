@@ -83,7 +83,9 @@ OUTPUT_NAME|Indexed, specifies output name (automatically generated if not set)
 
 Indexed variables can be added in multiple instances. For OUTPUT_CREATE, you can create the initial OUTPUT_CREATE, then OUTPUT_CREATE_1, OUTPUT_CREATE_2, etc.
 
-##### Alsa Output
+##### Outputs
+
+###### Alsa Output
 
 See the alsa-specific env variables:
 
@@ -102,12 +104,13 @@ OUTPUT_ALLOWED_FORMATS|Output property, valid for `alsa`
 OUTPUT_CLOSE_ON_PAUSE|Close the device while playback is paused, defaults to `yes`
 OUTPUT_DEFAULT_FORMAT|Output default format, example `44100:16:2`
 OUTPUT_MIXER_TYPE|Output mixer type, e.g. `software`
+OUTPUT_MIXER_DEVICE|Mixer device
 OUTPUT_MIXER_CONTROL|Mixer control
 OUTPUT_MIXER_INDEX|Mixer index
 OUTPUT_INTEGER_UPSAMPLING|Ouput property (only in my mpd branch), can be enabled with `yes`
 OUTPUT_INTEGER_UPSAMPLING_ALLOWED|Ouput property (only in my mpd branch), specifies the formats that are subject to integer upsampling, example value: `44100:*:* 48000:*:*`
 
-##### Pipewire Output
+###### Pipewire Output
 
 See the pipewire-specific env variables:
 
@@ -117,7 +120,7 @@ OUTPUT_TARGET|Output target
 OUTPUT_REMOTE|Output remote
 OUTPUT_DSD|Output dsd
 
-##### PulseAudio Output
+###### PulseAudio Output
 
 See the pulseaudio-specific env variables:
 
@@ -128,7 +131,7 @@ OUTPUT_SINK|Output sink
 OUTPUT_ROLE|Output role
 OUTPUT_FACTOR|Output factor
 
-##### HTTPD Output
+###### HTTPD Output
 
 See the httpd-specific env variables:
 
@@ -149,13 +152,31 @@ OUTPUT_GENRE|Output genre
 OUTPUT_WEBSITE|Output website
 OUTPUT_ALWAYS_ON|Output always on, defaults to `yes`
 
-##### Null Output
+###### Null Output
 
 See the null-specific env variables:
 
 VARIABLE|DESCRIPTION
 :---|:---
 OUTPUT_SYNC|Output sync
+
+##### Plugins
+
+###### SOXR Resampler Plugin
+
+See the soxr-specific env variables:
+
+VARIABLE|DESCRIPTION
+:---|:---
+RESAMPLER_SOXR_CREATE|Enable the SOXR plugin
+SOXR_QUALITY|Quality
+SOXR_THREADS|Threads
+SOXR_PRECISION|Precision
+SOXR_PHASE_RESPONSE|Phase response
+SOXR_PASSBAND_END|Passband end
+SOXR_STOPBAND_BEGIN|Stopband begin
+SOXR_ATTENUATION|Attenuation
+SOXR_FLAGS|Flags
 
 #### Usage examples
 

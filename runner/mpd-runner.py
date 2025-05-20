@@ -160,6 +160,7 @@ class MpdConfKey(Enum):
     OUTPUT_DOP = "dop"
     OUTPUT_ALLOWED_FORMATS = "allowed_formats"
     OUTPUT_MIXER_INDEX = "mixer_index"
+    OUTPUT_MIXER_DEVICE = "mixer_device"
     OUTPUT_MIXER_CONTROL = "mixer_control"
     OUTPUT_STOP_DSD_SILENCE = "stop_dsd_silence"
     OUTPUT_HOSTNAME = "hostname"
@@ -182,6 +183,15 @@ class MpdConfKey(Enum):
     OUTPUT_GENRE = "genre"
     OUTPUT_WEBSITE = "website"
     OUTPUT_ALWAYS_ON = "always_on"
+    SOXR_QUALITY = "quality"
+    SOXR_THREADS = "threads"
+    SOXR_PRECISION = "precision"
+    SOXR_PHASE_RESPONSE = "phase_response"
+    SOXR_PASSBAND_END = "passband_end"
+    SOXR_STOPBAND_BEGIN = "stopband_begin"
+    SOXR_ATTENUATION = "attenuation"
+    SOXR_FLAGS = "flags"
+    PLUGIN_ENABLED = "enabled"
 
 
 class EnvironmentVariable(Enum):
@@ -233,7 +243,8 @@ class EnvironmentVariable(Enum):
         validator=Validator.YES_NO_OR_EMPTY.value)
     INPUT_CURL_ENABLED = EnvironmentVariableData(
         default_value="yes",
-        validator=Validator.YES_NO_OR_EMPTY.value)
+        validator=Validator.YES_NO_OR_EMPTY.value,
+        mpd_conf_key=MpdConfKey.PLUGIN_ENABLED.value)
     SAMPLERATE_CONVERTER = EnvironmentVariableData(mpd_conf_key=MpdConfKey.SAMPLERATE_CONVERTER.value)
     # opus decoder, might have issues for streaming,
     # so we disable it by default (ffmpeg should replace its functionality)
@@ -242,27 +253,34 @@ class EnvironmentVariable(Enum):
         validator=Validator.YES_NO_OR_EMPTY.value)
     DECODER_OPUS_ENABLED = EnvironmentVariableData(
         default_value="no",
-        validator=Validator.YES_NO_OR_EMPTY.value)
+        validator=Validator.YES_NO_OR_EMPTY.value,
+        mpd_conf_key=MpdConfKey.PLUGIN_ENABLED.value)
     DECODER_FFMPEG_CREATE = EnvironmentVariableData(
         default_value="no",
         validator=Validator.YES_NO_OR_EMPTY.value)
+    # FFMPEG is enabled if it is created
     DECODER_FFMPEG_ENABLED = EnvironmentVariableData(
-        default_value="no",
-        validator=Validator.YES_NO_OR_EMPTY.value)
+        default_value="yes",
+        validator=Validator.YES_NO_OR_EMPTY.value,
+        mpd_conf_key=MpdConfKey.PLUGIN_ENABLED.value)
     # hdcd support, enabled by default
     DECODER_HDCD_CREATE = EnvironmentVariableData(
         default_value="yes",
         validator=Validator.YES_NO_OR_EMPTY.value)
+    # HDCD is enabled if it is created
     DECODER_HDCD_ENABLED = EnvironmentVariableData(
         default_value="yes",
-        validator=Validator.YES_NO_OR_EMPTY.value)
+        validator=Validator.YES_NO_OR_EMPTY.value,
+        mpd_conf_key=MpdConfKey.PLUGIN_ENABLED.value)
     # wildmini support, dissbled by default
     DECODER_WILDMIDI_CREATE = EnvironmentVariableData(
         default_value="yes",
         validator=Validator.YES_NO_OR_EMPTY.value)
+    # WILDMIDI is disabled by default
     DECODER_WILDMIDI_ENABLED = EnvironmentVariableData(
         default_value="no",
-        validator=Validator.YES_NO_OR_EMPTY.value)
+        validator=Validator.YES_NO_OR_EMPTY.value,
+        mpd_conf_key=MpdConfKey.PLUGIN_ENABLED.value)
     # other stuff
     FILESYSTEM_CHARSET = EnvironmentVariableData(
         default_value="UTF-8",
@@ -287,8 +305,9 @@ class EnvironmentVariable(Enum):
     OUTPUT_FORMAT = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_FORMAT.value)
     # alsa
     OUTPUT_DEVICE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_DEVICE.value)
+    OUTPUT_MIXER_DEVICE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MIXER_DEVICE.value)
     OUTPUT_MIXER_CONTROL = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MIXER_CONTROL.value)
-    OUTPUT_MIXER_INDEX = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MIXER_INDEX)
+    OUTPUT_MIXER_INDEX = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MIXER_INDEX.value)
     OUTPUT_ALLOWED_FORMATS = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_ALLOWED_FORMATS.value)
     OUTPUT_AUTO_RESAMPLE = IndexedEnvironmentVariableData(
         mpd_conf_key=MpdConfKey.OUTPUT_AUTO_RESAMPLE.value,
@@ -348,8 +367,21 @@ class EnvironmentVariable(Enum):
     OUTPUT_QUALITY = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_QUALITY.value)
     OUTPUT_MAX_CLIENTS = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_MAX_CLIENTS.value)
     OUTPUT_GENRE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_GENRE.value)
-    OUTPUT_WEBSITE = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_WEBSITE.value, default_value="yes")
+    OUTPUT_WEBSITE = IndexedEnvironmentVariableData(
+        mpd_conf_key=MpdConfKey.OUTPUT_WEBSITE.value,
+        default_value="yes")
     OUTPUT_ALWAYS_ON = IndexedEnvironmentVariableData(mpd_conf_key=MpdConfKey.OUTPUT_ALWAYS_ON.value)
+    RESAMPLER_SOXR_CREATE = EnvironmentVariableData(
+        default_value="no",
+        validator=Validator.YES_NO_OR_EMPTY.value)
+    SOXR_QUALITY = EnvironmentVariableData(mpd_conf_key=MpdConfKey.SOXR_QUALITY.value, default_value="very high")
+    SOXR_THREADS = EnvironmentVariableData(mpd_conf_key=MpdConfKey.SOXR_THREADS.value, default_value="1")
+    SOXR_PRECISION = EnvironmentVariableData(mpd_conf_key=MpdConfKey.SOXR_PRECISION.value)
+    SOXR_PHASE_RESPONSE = EnvironmentVariableData(mpd_conf_key=MpdConfKey.SOXR_PHASE_RESPONSE.value)
+    SOXR_PASSBAND_END = EnvironmentVariableData(mpd_conf_key=MpdConfKey.SOXR_PASSBAND_END.value)
+    SOXR_STOPBAND_BEGIN = EnvironmentVariableData(mpd_conf_key=MpdConfKey.SOXR_STOPBAND_BEGIN.value)
+    SOXR_ATTENUATION = EnvironmentVariableData(mpd_conf_key=MpdConfKey.SOXR_ATTENUATION.value)
+    SOXR_FLAGS = EnvironmentVariableData(mpd_conf_key=MpdConfKey.SOXR_FLAGS.value)
 
     @property
     def indexed(self) -> bool:
@@ -366,6 +398,153 @@ class EnvironmentVariable(Enum):
     @property
     def validator(self) -> Callable[[str], str]:
         return self.value.validator
+
+
+class PluginCategoryData:
+
+    def __init__(self, plugin_category_name: str):
+        self.__plugin_category_name: str = plugin_category_name
+
+    @property
+    def plugin_category_name(self) -> str:
+        return self.__plugin_category_name
+
+
+class PluginCategory(Enum):
+    RESAMPLER = PluginCategoryData(plugin_category_name="resampler")
+    DECODER = PluginCategoryData(plugin_category_name="decoder")
+    INPUT = PluginCategoryData(plugin_category_name="input")
+
+    @property
+    def plugin_category_name(self) -> str:
+        return self.value.plugin_category_name
+
+
+class PluginPropertyData:
+
+    def __init__(self, env_var: EnvironmentVariable):
+        self.__env_var: EnvironmentVariable = env_var
+
+    @property
+    def env_var(self) -> EnvironmentVariable:
+        return self.__env_var
+
+
+class PluginProperty(Enum):
+
+    @property
+    def env_var(self) -> EnvironmentVariable:
+        return self.value.env_var
+
+
+class FfmpegPluginProperty(PluginProperty):
+    ENABLED = PluginPropertyData(EnvironmentVariable.DECODER_FFMPEG_ENABLED)
+
+
+class HdcdPluginProperty(PluginProperty):
+    ENABLED = PluginPropertyData(EnvironmentVariable.DECODER_HDCD_ENABLED)
+
+
+class WildMidiPluginProperty(PluginProperty):
+    ENABLED = PluginPropertyData(EnvironmentVariable.DECODER_WILDMIDI_ENABLED)
+
+
+class OpusPluginProperty(PluginProperty):
+    ENABLED = PluginPropertyData(EnvironmentVariable.DECODER_OPUS_ENABLED)
+
+
+class CurlPluginProperty(PluginProperty):
+    ENABLED = PluginPropertyData(EnvironmentVariable.INPUT_CURL_ENABLED)
+
+
+class SoxrPluginProperty(PluginProperty):
+    SOXR_QUALITY = PluginPropertyData(EnvironmentVariable.SOXR_QUALITY)
+    SOXR_THREADS = PluginPropertyData(EnvironmentVariable.SOXR_THREADS)
+    SOXR_PRECISION = PluginPropertyData(EnvironmentVariable.SOXR_PRECISION)
+    SOXR_PHASE_RESPONSE = PluginPropertyData(EnvironmentVariable.SOXR_PHASE_RESPONSE)
+    SOXR_PASSBAND_END = PluginPropertyData(EnvironmentVariable.SOXR_PASSBAND_END)
+    SOXR_STOPBAND_BEGIN = PluginPropertyData(EnvironmentVariable.SOXR_STOPBAND_BEGIN)
+    SOXR_ATTENUATION = PluginPropertyData(EnvironmentVariable.SOXR_ATTENUATION)
+    SOXR_FLAGS = PluginPropertyData(EnvironmentVariable.SOXR_FLAGS)
+
+
+class PluginCategoryData:
+
+    def __init__(
+            self,
+            plugin_type_name: str,
+            plugin_category: PluginCategory,
+            enum_type: type[PluginProperty],
+            create_env_var: EnvironmentVariable):
+        self.__plugin_type_name: str = plugin_type_name
+        self.__plugin_category: PluginCategory = plugin_category
+        self.__enum_type: type[PluginProperty] = enum_type
+        self.__create_env_var: EnvironmentVariable = create_env_var
+
+    @property
+    def plugin_type_name(self) -> str:
+        return self.__plugin_type_name
+
+    @property
+    def plugin_category(self) -> PluginCategory:
+        return self.__plugin_category
+
+    @property
+    def enum_type(self) -> type[PluginProperty]:
+        return self.__enum_type
+
+    @property
+    def create_env_var(self) -> EnvironmentVariable:
+        return self.__create_env_var
+
+
+class PluginType(Enum):
+    SOXR = PluginCategoryData(
+        plugin_type_name="soxr",
+        plugin_category=PluginCategory.RESAMPLER,
+        enum_type=SoxrPluginProperty,
+        create_env_var=EnvironmentVariable.RESAMPLER_SOXR_CREATE)
+    FFMPEG = PluginCategoryData(
+        plugin_type_name="ffmpeg",
+        plugin_category=PluginCategory.DECODER,
+        enum_type=FfmpegPluginProperty,
+        create_env_var=EnvironmentVariable.DECODER_FFMPEG_CREATE)
+    HDCD = PluginCategoryData(
+        plugin_type_name="hdcd",
+        plugin_category=PluginCategory.DECODER,
+        enum_type=HdcdPluginProperty,
+        create_env_var=EnvironmentVariable.DECODER_HDCD_CREATE)
+    OPUS = PluginCategoryData(
+        plugin_type_name="opus",
+        plugin_category=PluginCategory.DECODER,
+        enum_type=OpusPluginProperty,
+        create_env_var=EnvironmentVariable.DECODER_OPUS_CREATE)
+    WILDMIDI = PluginCategoryData(
+        plugin_type_name="wildmidi",
+        plugin_category=PluginCategory.DECODER,
+        enum_type=WildMidiPluginProperty,
+        create_env_var=EnvironmentVariable.DECODER_WILDMIDI_CREATE)
+    CURL = PluginCategoryData(
+        plugin_type_name="curl",
+        plugin_category=PluginCategory.INPUT,
+        enum_type=CurlPluginProperty,
+        create_env_var=EnvironmentVariable.INPUT_CURL_CREATE)
+
+    @property
+    def plugin_type_name(self) -> str:
+        return self.value.plugin_type_name
+
+    @property
+    def plugin_category(self) -> PluginCategory:
+        return self.value.plugin_category
+
+    @property
+    def enum_type(self) -> type[PluginProperty]:
+        return self.value.enum_type
+
+    @property
+    def create_env_var(self) -> EnvironmentVariable:
+        return self.value.create_env_var
 
 
 class OutputPropertyData:
@@ -388,6 +567,7 @@ class OutputProperty(Enum):
 class AlsaOutputProperty(OutputProperty):
     OUTPUT_DEVICE = OutputPropertyData(EnvironmentVariable.OUTPUT_DEVICE)
     OUTPUT_MIXER_TYPE = OutputPropertyData(EnvironmentVariable.OUTPUT_MIXER_TYPE)
+    OUTPUT_MIXER_DEVICE = OutputPropertyData(EnvironmentVariable.OUTPUT_MIXER_DEVICE)
     OUTPUT_MIXER_CONTROL = OutputPropertyData(EnvironmentVariable.OUTPUT_MIXER_CONTROL)
     OUTPUT_MIXER_INDEX = OutputPropertyData(EnvironmentVariable.OUTPUT_MIXER_INDEX)
     OUTPUT_ALLOWED_FORMATS = OutputPropertyData(EnvironmentVariable.OUTPUT_ALLOWED_FORMATS)
@@ -440,23 +620,90 @@ class NullOutputProperty(OutputProperty):
     OUTPUT_SYNC = OutputPropertyData(EnvironmentVariable.OUTPUT_SYNC)
 
 
+class ValidatorName:
+
+    def __init__(self, validator_name: str):
+        self.__validator_name: str = validator_name
+
+    @property
+    def validator_name(self) -> str:
+        return self.__validator_name
+
+
+class ValidationResult:
+
+    def __init__(
+            self, success: bool,
+            error_message_provider: Callable[[ValidatorName], str] = None):
+        self.__success: bool = success
+        self.__error_message_provider: Callable[[ValidatorName], str] = error_message_provider
+
+    @property
+    def success(self) -> bool:
+        return self.__success
+
+    @property
+    def error_message_provider(self) -> Callable[[ValidatorName], str]:
+        return self.__error_message_provider
+
+
+class OutputValidatorData:
+
+    def __init__(self, validator: Callable[[dict[str, str]], ValidationResult]):
+        self.__validator: Callable[[dict[str, str]], ValidationResult] = validator
+
+    @property
+    def output_validator(self) -> Callable[[dict[str, str]], ValidationResult]:
+        return self.__validator
+
+
+def dummy_validator(properties: dict[str, str]) -> ValidationResult:
+    return ValidationResult(
+        success=True,
+        error_message_provider=lambda x: f"Error while executing validator [{x.validator_name}]")
+
+
+class OutputValidator(Enum):
+
+    @property
+    def output_validator(self) -> Callable[[dict[str, str]], ValidationResult]:
+        return self.value.output_validator
+
+
+class AlsaOutputValidator(OutputValidator):
+    # Just a placeholder/example here
+    DUMMY_VALIDATOR = OutputValidatorData(dummy_validator)
+
+
 class OutputTypeData:
 
-    def __init__(self, output_type_name: str, enum_type: type):
+    def __init__(
+            self,
+            output_type_name: str,
+            enum_type: type[OutputProperty],
+            output_validator_type: type[OutputValidator] = None):
         self.__output_type_name: str = output_type_name
-        self.__enum_type: type = enum_type
+        self.__enum_type: type[OutputProperty] = enum_type
+        self.__output_validator_type: type[OutputValidator] = output_validator_type
 
     @property
     def output_type_name(self) -> str:
         return self.__output_type_name
 
     @property
-    def enum_type(self) -> type:
+    def enum_type(self) -> type[OutputProperty]:
         return self.__enum_type
+
+    @property
+    def output_validator_type(self) -> type[OutputValidator]:
+        return self.__output_validator_type
 
 
 class OutputType(Enum):
-    ALSA = OutputTypeData(output_type_name="alsa", enum_type=AlsaOutputProperty)
+    ALSA = OutputTypeData(
+        output_type_name="alsa",
+        enum_type=AlsaOutputProperty,
+        output_validator_type=AlsaOutputValidator)
     PIPEWIRE = OutputTypeData(output_type_name="pipewire", enum_type=PipewireOutputProperty)
     PULSE = OutputTypeData(output_type_name="pulse", enum_type=PulseOutputProperty)
     NULL = OutputTypeData(output_type_name="null", enum_type=NullOutputProperty)
@@ -467,15 +714,37 @@ class OutputType(Enum):
         return self.value.output_type_name
 
     @property
-    def enum_type(self) -> type:
+    def enum_type(self) -> type[OutputProperty]:
         return self.value.enum_type
+
+    @property
+    def validator_type(self) -> type[OutputValidator]:
+        return self.value.output_validator_type
 
 
 def get_output_properties_by_name(output_type_name: str) -> list[OutputProperty]:
+    ot: OutputType
     for ot in OutputType:
         if ot.output_type_name == output_type_name:
-            enum_type: type = ot.enum_type
+            enum_type: type[OutputProperty] = ot.enum_type
             return list(map(lambda x: x, enum_type))
+    return None
+
+
+def get_plugin_properties_by_name(plugin_type_name: str) -> list[PluginProperty]:
+    pt: PluginType
+    for pt in PluginType:
+        if pt.plugin_type_name == plugin_type_name:
+            enum_type: type[PluginProperty] = pt.enum_type
+            return list(map(lambda x: x, enum_type))
+    return None
+
+
+def get_output_validators_by_name(output_type_name: str) -> list[OutputValidator]:
+    for ot in OutputType:
+        if ot.output_type_name == output_type_name:
+            validator_type: type = ot.validator_type
+            return list(map(lambda x: x, validator_type)) if validator_type else []
     return None
 
 
@@ -643,46 +912,33 @@ def write_variable(f, env_var: EnvironmentVariable):
         write_simple_value(f, env_var.mpd_conf_key, v)
 
 
-def write_plugin(f, plugin_type: str, plugin_name: str, enabled: bool = True, properties: dict[str, str] = {}):
-    f.write(f"{plugin_type} {{\n")
+def write_plugin_raw(
+        f,
+        plugin_category: str,
+        plugin_name: str,
+        properties: dict[str, str] = {}):
+    f.write(f"{plugin_category} {{\n")
     f.write(f"  plugin \"{plugin_name}\"\n")
-    f.write(f"  enabled \"{'yes' if enabled else 'no'}\"\n")
     for k, v in properties.items():
         f.write(f"  {k} \"{v}\"\n")
     f.write("}\n")
 
 
-def write_input_plugin(f, plugin_name: str, enabled: bool = True, properties: dict[str, str] = {}):
-    write_plugin(
-        f=f,
-        plugin_type="input",
-        plugin_name=plugin_name,
-        enabled=enabled,
-        properties=properties)
-
-
-def write_decoder_plugin(f, plugin_name: str, enabled: bool = True, properties: dict[str, str] = {}):
-    write_plugin(
-        f=f,
-        plugin_type="decoder",
-        plugin_name=plugin_name,
-        enabled=enabled,
-        properties=properties)
-
-
-def write_simple_plugin(
-        f,
-        plugin_type: str,
-        plugin_name: str,
-        create: EnvironmentVariable,
-        enabled: EnvironmentVariable,
-        properties: dict[str, str] = {}):
-    if get_env_variable_as_bool(env_var=create):
-        write_plugin(
+def write_structured_plugin(f, plugin_type: PluginType):
+    if get_env_variable_as_bool(env_var=plugin_type.create_env_var):
+        properties: dict[str, str] = {}
+        # build properties
+        pp_list: list[PluginProperty] = get_plugin_properties_by_name(plugin_type_name=plugin_type.plugin_type_name)
+        pp: PluginProperty
+        for pp in pp_list:
+            # get value and add to properties dict
+            v: str = get_env_variable(env_var=pp.env_var)
+            if v and len(v) > 0:
+                properties[pp.env_var.mpd_conf_key] = v
+        write_plugin_raw(
             f=f,
-            plugin_type=plugin_type,
-            plugin_name=plugin_name,
-            enabled=get_env_variable_as_bool(env_var=enabled),
+            plugin_category=plugin_type.plugin_category.plugin_category_name,
+            plugin_name=plugin_type.plugin_type_name,
             properties=properties)
 
 
@@ -730,42 +986,9 @@ def write_config_file() -> str:
         write_variable(f=f, env_var=EnvironmentVariable.MPD_PORT)
         write_variable(f=f, env_var=EnvironmentVariable.LOG_LEVEL)
         write_variable(f=f, env_var=EnvironmentVariable.RESTORE_PAUSED)
-        write_simple_plugin(
-            f=f,
-            plugin_type="input",
-            plugin_name="curl",
-            create=EnvironmentVariable.INPUT_CURL_CREATE,
-            enabled=EnvironmentVariable.INPUT_CURL_ENABLED)
-        write_simple_plugin(
-            f=f,
-            plugin_type="decoder",
-            plugin_name="opus",
-            create=EnvironmentVariable.DECODER_OPUS_CREATE,
-            enabled=EnvironmentVariable.DECODER_OPUS_ENABLED)
-        write_simple_plugin(
-            f=f,
-            plugin_type="decoder",
-            plugin_name="ffmpeg",
-            create=EnvironmentVariable.DECODER_FFMPEG_CREATE,
-            enabled=EnvironmentVariable.DECODER_FFMPEG_ENABLED)
-        write_simple_plugin(
-            f=f,
-            plugin_type="decoder",
-            plugin_name="hdcd",
-            create=EnvironmentVariable.DECODER_HDCD_CREATE,
-            enabled=EnvironmentVariable.DECODER_HDCD_ENABLED)
-        write_simple_plugin(
-            f=f,
-            plugin_type="decoder",
-            plugin_name="wildmidi",
-            create=EnvironmentVariable.DECODER_WILDMIDI_CREATE,
-            enabled=EnvironmentVariable.DECODER_WILDMIDI_ENABLED)
-        # outputs!
+        # outputs
         max_outputs: int = 100
         for i in range(0, max_outputs):
-            # output_is_set: str = get_indexed_env_variable(env_var=EnvironmentVariable.OUTPUT_CREATE, index=i)
-            # if not output_is_set:
-            #     break
             output_create: bool = get_indexed_env_variable_as_bool(env_var=EnvironmentVariable.OUTPUT_CREATE, index=i)
             # print(f"Output [{i}] must be created: [{'yes' if output_create is True else 'no'}]")
             if output_create:
@@ -788,7 +1011,23 @@ def write_config_file() -> str:
                     v: str = get_indexed_env_variable(env_var=p.env_var, index=i)
                     if v:
                         properties[p.env_var.mpd_conf_key] = v
+                # validate properties?
+                validator_list: list[OutputValidator] = get_output_validators_by_name(output_type)
+                validator: OutputValidator
+                for validator in validator_list:
+                    validation_result: ValidationResult = validator.output_validator(properties)
+                    msg_provider: Callable[[], str] = validation_result.error_message_provider
+                    if not validation_result.success:
+                        err_msg: str = (msg_provider(ValidatorName(validator.name))
+                                        if msg_provider
+                                        else 'empty error message')
+                        raise Exception(f"Validation failed: [{err_msg}]")
                 write_output(f=f, output_type=output_type, properties=properties)
+        # plugins
+        plugin_type: PluginType
+        for plugin_type in PluginType:
+            write_structured_plugin(f=f, plugin_type=plugin_type)
+        # final stuff
         write_variable(f=f, env_var=EnvironmentVariable.SAMPLERATE_CONVERTER)
         write_variable(f=f, env_var=EnvironmentVariable.FILESYSTEM_CHARSET)
         f.close()
