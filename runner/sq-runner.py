@@ -8,15 +8,32 @@ import exceptions
 
 
 class VariableName(Enum):
-    SQUEEZELITE_BINARY = "SQUEEZELITE_BINARY"
+    SQUEEZELITE_BINARY_PATH = "SQUEEZELITE_BINARY_PATH"
     SQUEEZELITE_RESTART_ON_FAIL = "SQUEEZELITE_RESTART_ON_FAIL"
     SQUEEZELITE_RESTART_DELAY = "SQUEEZELITE_RESTART_DELAY"
     SQUEEZELITE_SERVER_PORT = "SQUEEZELITE_SERVER_PORT"
     SQUEEZELITE_AUDIO_DEVICE = "SQUEEZELITE_AUDIO_DEVICE"
+    SQUEEZELITE_MIXER_DEVICE = "SQUEEZELITE_MIXER_DEVICE"
     SQUEEZELITE_TIMEOUT = "SQUEEZELITE_TIMEOUT"
     SQUEEZELITE_LINEAR_VOLUME = "SQUEEZELITE_LINEAR_VOLUME"
     SQUEEZELITE_NAME = "SQUEEZELITE_NAME"
-    SQUEEZELITE_MODEL = "SQUEEZELITE_MODEL"
+    SQUEEZELITE_MODEL_NAME = "SQUEEZELITE_MODEL_NAME"
+    SQUEEZELITE_PARAMS = "SQUEEZELITE_PARAMS"
+    SQUEEZELITE_BUFFER_SIZE = "SQUEEZELITE_BUFFER_SIZE"
+    SQUEEZELITE_VOLUME_CONTROL = "SQUEEZELITE_VOLUME_CONTROL"
+    SQUEEZELITE_UNMUTE = "SQUEEZELITE_UNMUTE"
+    SQUEEZELITE_VISUALIZER = "SQUEEZELITE_VISUALIZER"
+    SQUEEZELITE_MAC_ADDRESS = "SQUEEZELITE_MAC_ADDRESS"
+    SQUEEZELITE_REPORT_MAX_SAMPLE_RATE = "SQUEEZELITE_REPORT_MAX_SAMPLE_RATE"
+    SQUEEZELITE_CODECS = "SQUEEZELITE_CODECS"
+    SQUEEZELITE_EXCLUDE_CODECS = "SQUEEZELITE_EXCLUDE_CODECS"
+    SQUEEZELITE_UPSAMPLING = "SQUEEZELITE_UPSAMPLING"
+    SQUEEZELITE_RATES = "SQUEEZELITE_RATES"
+    SQUEEZELITE_DELAY = "SQUEEZELITE_DELAY"
+    SQUEEZELITE_PRIORITY = "SQUEEZELITE_PRIORITY"
+    SQUEEZELITE_READ_FORMATS_FROM_HEADER = "SQUEEZELITE_READ_FORMATS_FROM_HEADER"
+    SQUEEZELITE_POWER_SCRIPT = "SQUEEZELITE_POWER_SCRIPT"
+    SQUEEZELITE_RPI_GPIO = "SQUEEZELITE_RPI_GPIO"
 
 
 class CommandLineOptionMapperData:
@@ -80,6 +97,9 @@ class CommandLineOptionMapper(Enum):
     SQUEEZELITE_AUDIO_DEVICE = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_AUDIO_DEVICE.value,
         cmd_line_option="-o")
+    SQUEEZELITE_MIXER_DEVICE = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_MIXER_DEVICE.value,
+        cmd_line_option="-O")
     SQUEEZELITE_TIMEOUT = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_TIMEOUT.value,
         cmd_line_option="-C",
@@ -92,9 +112,74 @@ class CommandLineOptionMapper(Enum):
         var_name=VariableName.SQUEEZELITE_NAME.value,
         cmd_line_option="-n",
         in_quotes=True)
-    SQUEEZELITE_MODEL = CommandLineOptionMapperData(
-        var_name=VariableName.SQUEEZELITE_MODEL.value,
+    SQUEEZELITE_MODEL_NAME = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_MODEL_NAME.value,
         cmd_line_option="-m",
+        in_quotes=True)
+    SQUEEZELITE_PARAMS = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_PARAMS.value,
+        cmd_line_option="-a",
+        in_quotes=True)
+    SQUEEZELITE_BUFFER_SIZE = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_BUFFER_SIZE.value,
+        cmd_line_option="-b",
+        in_quotes=True)
+    SQUEEZELITE_VOLUME_CONTROL = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_VOLUME_CONTROL.value,
+        cmd_line_option="-V",
+        in_quotes=True)
+    SQUEEZELITE_UNMUTE = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_UNMUTE.value,
+        cmd_line_option="-U",
+        in_quotes=True)
+    SQUEEZELITE_VISUALIZER = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_VISUALIZER.value,
+        cmd_line_option="-v",
+        in_quotes=True)
+    SQUEEZELITE_MAC_ADDRESS = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_MAC_ADDRESS.value,
+        cmd_line_option="-m",
+        in_quotes=True)
+    SQUEEZELITE_REPORT_MAX_SAMPLE_RATE = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_REPORT_MAX_SAMPLE_RATE.value,
+        cmd_line_option="-Z",
+        in_quotes=True)
+    SQUEEZELITE_CODECS = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_CODECS.value,
+        cmd_line_option="-c",
+        in_quotes=True)
+    SQUEEZELITE_EXCLUDE_CODECS = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_EXCLUDE_CODECS.value,
+        cmd_line_option="-e",
+        in_quotes=True)
+    SQUEEZELITE_UPSAMPLING = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_UPSAMPLING.value,
+        cmd_line_option="-u",
+        in_quotes=True)
+    SQUEEZELITE_RATES = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_RATES.value,
+        cmd_line_option="-r",
+        in_quotes=True)
+    SQUEEZELITE_DELAY = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_DELAY.value,
+        cmd_line_option="-D",
+        dflt_value="500",
+        in_quotes=True)
+    SQUEEZELITE_PRIORITY = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_PRIORITY.value,
+        cmd_line_option="-p",
+        in_quotes=True)
+    SQUEEZELITE_READ_FORMATS_FROM_HEADER = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_READ_FORMATS_FROM_HEADER.value,
+        cmd_line_option="-W",
+        in_quotes=True)
+    SQUEEZELITE_POWER_SCRIPT = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_POWER_SCRIPT.value,
+        cmd_line_option="-S",
+        in_quotes=True)
+    SQUEEZELITE_RPI_GPIO = CommandLineOptionMapperData(
+        var_name=VariableName.SQUEEZELITE_RPI_GPIO.value,
+        cmd_line_option="-G",
         in_quotes=True)
 
     @property
@@ -119,8 +204,8 @@ class CommandLineOptionMapper(Enum):
 
 
 class LauncherOption(Enum):
-    SQUEEZELITE_BINARY = LauncherOptionData(
-        var_name=VariableName.SQUEEZELITE_BINARY.value,
+    SQUEEZELITE_BINARY_PATH = LauncherOptionData(
+        var_name=VariableName.SQUEEZELITE_BINARY_PATH.value,
         dflt_value="/usr/bin/squeezelite")
     SQUEEZELITE_RESTART_ON_FAIL = LauncherOptionData(
         var_name=VariableName.SQUEEZELITE_RESTART_ON_FAIL.value,
@@ -153,7 +238,6 @@ def must_be_int(v: str) -> str:
 
 
 def getenv_as_bool(key: str, default: any = None) -> str:
-    default: str = "no"
     if default and isinstance(default, bool):
         dflt_value_str = "yes" if default else "no"
     elif default and isinstance(default, str):
@@ -182,11 +266,11 @@ def add_command_line_option(
 
 def main():
     fallback_sq_binary: str = "squeezelite"
-    sq_default_binary: Path = Path(LauncherOption.SQUEEZELITE_BINARY.value.dflt_value)
+    sq_default_binary: Path = Path(LauncherOption.SQUEEZELITE_BINARY_PATH.value.dflt_value)
     if sq_default_binary.is_file():
         # file exists
         fallback_sq_binary = str(sq_default_binary.resolve(strict=True))
-    sq_binary: str = getenv(LauncherOption.SQUEEZELITE_BINARY.value.var_name, fallback_sq_binary)
+    sq_binary: str = getenv(LauncherOption.SQUEEZELITE_BINARY_PATH.value.var_name, fallback_sq_binary)
     print(f"squeezelite runner is using [{sq_binary}]")
     command_line: str = sq_binary
     mapper: CommandLineOptionMapper
@@ -204,8 +288,11 @@ def main():
     while True:
         print(f"Executing [{command_line}] ...")
         res: int = os.system(command_line)
-        print(f"Result: [{res}] type [{type(res)}]")
+        print(f"Result: [{res}] type [{type(res)}] "
+              f"restart_on_fail [{restart_on_fail}] "
+              f"restart_delay [{restart_delay}]")
         if res == 0 or not restart_on_fail:
+            print("Start failed, will not retry.")
             break
         else:
             # wait the configured amount of time

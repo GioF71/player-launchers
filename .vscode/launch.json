@@ -2,18 +2,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Squeezelite for onboard audio",
+            "name": "Squeezelite (hw:CARD=DAC)",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/runner/sq-runner.py",
             "console": "integratedTerminal",
             "env": {
                 "SQUEEZELITE_AUDIO_DEVICE": "hw:CARD=DAC",
-                "SQUEEZELITE_SERVER_PORT": "lms.homelab.local",
+                "SQUEEZELITE_SERVER_PORT": "music-assistant.homelab.local",
                 "SQUEEZELITE_LINEAR_VOLUME": "no",
-                "SQUEEZELITE_RESTART_ON_FAIL": "yes",
+                "_SQUEEZELITE_RESTART_ON_FAIL": "yes",
                 "SQUEEZELITE_NAME": "Aune X1s Vanilla",
-                "SQUEEZELITE_MODEL": "SqueezeLite"
+                "SQUEEZELITE_MODEL_NAME": "SqueezeLite",
+                "_SQUEEZELITE_PARAMS": "300:",
+                "SQUEEZELITE_MAC_ADDRESS": "D7:26:40:CF:AA:58",
+                "SQUEEZELITE_REPORT_MAX_SAMPLE_RATE": "384000"
             }
         },
         {

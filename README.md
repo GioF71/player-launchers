@@ -18,15 +18,32 @@ This one is currently very limited, and will support just a handful of environme
 
 VARIABLE|SWITCH|DESCRIPTION
 :---|:---:|:---
-SQUEEZELITE_BINARY||Path of the SqueezeLite binary, defaults to `/usr/bin/squeezelite`
+SQUEEZELITE_BINARY_PATH||Path of the SqueezeLite binary, defaults to `/usr/bin/squeezelite`
 SQUEEZELITE_RESTART_ON_FAIL||Restart in case of failure if set to `yes`
 SQUEEZELITE_RESTART_DELAY||Delay between a new restart in seconds, defaults to `3`
 SQUEEZELITE_SERVER_PORT|-s|The server and port, optional
 SQUEEZELITE_AUDIO_DEVICE|-o|The audio device, optional
+SQUEEZELITE_MIXER_DEVICE|-O|Specify the mixer device, optional
 SQUEEZELITE_NAME|-n|Name of the Squeezelite player
-SQUEEZELITE_MODEL|-M|Model name of the Squeezelite player
+SQUEEZELITE_MODEL_NAME|-M|Model name of the Squeezelite player
 SQUEEZELITE_TIMEOUT|-C|Timeout in seconds, defaults to `3`
 SQUEEZELITE_LINEAR_VOLUME|-X|Use linear volume if set to `yes`
+SQUEEZELITE_PARAMS|-a|Specify parameters used when opening an audio output device
+SQUEEZELITE_BUFFER_SIZE|-b|Specify internal stream and output buffer sizes in kilobytes. Default is 2048:3446
+SQUEEZELITE_VOLUME_CONTROL|-V|Squeezelite Volume Control for alsa output
+SQUEEZELITE_UNMUTE|-U|Unmute
+SQUEEZELITE_VISUALIZER|-v|Visualizer support
+SQUEEZELITE_MAC_ADDRESS|-m|Allows to specify a mac address
+SQUEEZELITE_CODECS|-c|Allowed codecs
+SQUEEZELITE_EXCLUDE_CODECS|-e|Exclude codecs
+SQUEEZELITE_REPORT_MAX_SAMPLE_RATE|-Z|Report max supported sample rate
+SQUEEZELITE_UPSAMPLING|-R|Resampling/Upsampling
+SQUEEZELITE_RATES|-r|Supported sampling rates
+SQUEEZELITE_DELAY|-D|Delay, defaults to `500`
+SQUEEZELITE_PRIORITY|-p|Priority
+SQUEEZELITE_READ_FORMATS_FROM_HEADER|-w|Read wave and aiff format from header
+SQUEEZELITE_POWER_SCRIPT|-S|Power command support
+SQUEEZELITE_RPI_GPIO|-G|GPIO support
 
 #### Usage examples
 
