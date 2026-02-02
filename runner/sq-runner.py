@@ -114,7 +114,7 @@ class CommandLineOptionMapper(Enum):
         in_quotes=True)
     SQUEEZELITE_MODEL_NAME = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_MODEL_NAME.value,
-        cmd_line_option="-m",
+        cmd_line_option="-M",
         in_quotes=True)
     SQUEEZELITE_PARAMS = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_PARAMS.value,
