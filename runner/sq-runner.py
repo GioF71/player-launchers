@@ -291,12 +291,14 @@ def main():
         print(f"Result: [{res}] type [{type(res)}] "
               f"restart_on_fail [{restart_on_fail}] "
               f"restart_delay [{restart_delay}]")
-        if res == 0 or not restart_on_fail:
+        if res == 0 and not restart_on_fail:
             print("Start failed, will not retry.")
             break
         else:
             # wait the configured amount of time
+            print(f"Waiting [{restart_delay}] seconds ...") 
             time.sleep(restart_delay)
+            print("Retrying ...")
 
 
 if __name__ == "__main__":
