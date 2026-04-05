@@ -2,13 +2,15 @@
 
 import os
 import time
-from pathlib import Path
 from enum import Enum
 import exceptions
+import subprocess
+import shutil
 
 
 class VariableName(Enum):
     SQUEEZELITE_BINARY_PATH = "SQUEEZELITE_BINARY_PATH"
+    SQUEEZELITE_RESTART_ALWAYS = "SQUEEZELITE_RESTART_ALWAYS"
     SQUEEZELITE_RESTART_ON_FAIL = "SQUEEZELITE_RESTART_ON_FAIL"
     SQUEEZELITE_RESTART_DELAY = "SQUEEZELITE_RESTART_DELAY"
     SQUEEZELITE_SERVER_PORT = "SQUEEZELITE_SERVER_PORT"
@@ -103,7 +105,7 @@ class CommandLineOptionMapper(Enum):
     SQUEEZELITE_TIMEOUT = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_TIMEOUT.value,
         cmd_line_option="-C",
-        dflt_value=3)
+        dflt_value=5)
     SQUEEZELITE_LINEAR_VOLUME = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_LINEAR_VOLUME.value,
         cmd_line_option="-X",
@@ -155,6 +157,7 @@ class CommandLineOptionMapper(Enum):
     SQUEEZELITE_UPSAMPLING = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_UPSAMPLING.value,
         cmd_line_option="-u",
+        dflt_value="E",
         in_quotes=True)
     SQUEEZELITE_RATES = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_RATES.value,
@@ -168,7 +171,8 @@ class CommandLineOptionMapper(Enum):
     SQUEEZELITE_PRIORITY = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_PRIORITY.value,
         cmd_line_option="-p",
-        in_quotes=True)
+        dflt_value=45,
+        in_quotes=False)
     SQUEEZELITE_READ_FORMATS_FROM_HEADER = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_READ_FORMATS_FROM_HEADER.value,
         cmd_line_option="-W",
@@ -206,7 +210,10 @@ class CommandLineOptionMapper(Enum):
 class LauncherOption(Enum):
     SQUEEZELITE_BINARY_PATH = LauncherOptionData(
         var_name=VariableName.SQUEEZELITE_BINARY_PATH.value,
-        dflt_value="/usr/bin/squeezelite")
+        dflt_value="squeezelite")
+    SQUEEZELITE_RESTART_ALWAYS = LauncherOptionData(
+        var_name=VariableName.SQUEEZELITE_RESTART_ALWAYS.value,
+        dflt_value="no")
     SQUEEZELITE_RESTART_ON_FAIL = LauncherOptionData(
         var_name=VariableName.SQUEEZELITE_RESTART_ON_FAIL.value,
         dflt_value="yes")
@@ -250,34 +257,35 @@ def getenv(key: str, default: str = None) -> str:
     return os.getenv(key, default)
 
 
-def add_command_line_option(
-        command_line: str,
-        mapper: CommandLineOptionMapper) -> str:
+def add_command_line_option(command_line: list[str], mapper: CommandLineOptionMapper) -> list[str]:
     v: str = getenv(mapper.var_name, mapper.dflt_value)
     if mapper.boolean_value and v and v.lower() == "yes":
         # add selected flag
-        command_line = f"{command_line} {mapper.cmd_line_option}"
+        command_line += [ mapper.cmd_line_option ]
     elif not mapper.boolean_value and v:
         print(f"Using [{v}] for parameter [{mapper.cmd_line_option}] ...")
         mapped_value: str = v if not mapper.in_quotes else f"\"{v}\""
-        command_line = f"{command_line} {mapper.cmd_line_option} {mapped_value}"
+        # command_line = f"{command_line} {mapper.cmd_line_option} {mapped_value}"
+        command_line += [ mapper.cmd_line_option, str(mapped_value) ]
     return command_line
 
 
 def main():
-    fallback_sq_binary: str = "squeezelite"
-    sq_default_binary: Path = Path(LauncherOption.SQUEEZELITE_BINARY_PATH.value.dflt_value)
-    if sq_default_binary.is_file():
-        # file exists
-        fallback_sq_binary = str(sq_default_binary.resolve(strict=True))
-    sq_binary: str = getenv(LauncherOption.SQUEEZELITE_BINARY_PATH.value.var_name, fallback_sq_binary)
-    print(f"squeezelite runner is using [{sq_binary}]")
-    command_line: str = sq_binary
+    # fallback_sq_binary: str = shutil.which(LauncherOption.SQUEEZELITE_BINARY_PATH.value.dflt_value)
+    sq_binary: str = getenv(
+        key=LauncherOption.SQUEEZELITE_BINARY_PATH.value.var_name,
+        default=LauncherOption.SQUEEZELITE_BINARY_PATH.value.dflt_value)
+    print(f"squeezelite runner binary [{sq_binary}]")
+    sq_binary = os.path.expanduser(sq_binary)
+    which_binary: str = shutil.which(sq_binary)
+    command_line: list[str] = [os.path.expanduser(which_binary)]
+    print(f"squeezelite runner binary -> [{command_line[0]}]")
     mapper: CommandLineOptionMapper
     for mapper in CommandLineOptionMapper:
-        command_line = add_command_line_option(
-            command_line=command_line,
-            mapper=mapper)
+        command_line = add_command_line_option(command_line=command_line, mapper=mapper)
+    restart_anyway: bool = getenv_as_bool(
+        key=LauncherOption.SQUEEZELITE_RESTART_ALWAYS.var_name,
+        default=LauncherOption.SQUEEZELITE_RESTART_ALWAYS.dflt_value)
     restart_on_fail: bool = getenv_as_bool(
         key=LauncherOption.SQUEEZELITE_RESTART_ON_FAIL.var_name,
         default=LauncherOption.SQUEEZELITE_RESTART_ON_FAIL.dflt_value)
@@ -287,18 +295,18 @@ def main():
     print(f"Restart on fail: [{restart_on_fail}] delay: [{restart_delay}]")
     while True:
         print(f"Executing [{command_line}] ...")
-        res: int = os.system(command_line)
+        res: int = subprocess.run(command_line, shell=False)
         print(f"Result: [{res}] type [{type(res)}] "
               f"restart_on_fail [{restart_on_fail}] "
               f"restart_delay [{restart_delay}]")
-        if res == 0 and not restart_on_fail:
-            print("Start failed, will not retry.")
-            break
-        else:
+        if (restart_anyway) or (res != 0 and restart_on_fail):
             # wait the configured amount of time
             print(f"Waiting [{restart_delay}] seconds ...") 
             time.sleep(restart_delay)
             print("Retrying ...")
+        else:
+            print(f"Start returned [{res}], will not retry.")
+            break
 
 
 if __name__ == "__main__":
