@@ -265,8 +265,7 @@ def add_command_line_option(command_line: list[str], mapper: CommandLineOptionMa
     elif not mapper.boolean_value and v:
         print(f"Using [{v}] for parameter [{mapper.cmd_line_option}] ...")
         mapped_value: str = v if not mapper.in_quotes else f"\"{v}\""
-        # command_line = f"{command_line} {mapper.cmd_line_option} {mapped_value}"
-        command_line += [ mapper.cmd_line_option, str(mapped_value) ]
+        command_line += [ mapper.cmd_line_option, str(mapped_value).replace(" ", ":") ]
     return command_line
 
 
