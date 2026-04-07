@@ -149,6 +149,7 @@ class CommandLineOptionMapper(Enum):
     SQUEEZELITE_UPSAMPLING = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_UPSAMPLING.value,
         cmd_line_option="-u",
+        replace_spaces_with_colon=True,
         dflt_value="E")
     SQUEEZELITE_RATES = CommandLineOptionMapperData(
         var_name=VariableName.SQUEEZELITE_RATES.value,
