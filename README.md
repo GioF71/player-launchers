@@ -93,6 +93,7 @@ DECODER_WILDMIDI_CREATE|Creates the wildmidi decoder plugin entry, defaults to `
 DECODER_WILDMIDI_ENABLED|Enables wildmidi decoder plugin, defaults to `no`
 SAMPLERATE_CONVERTER|Sets `samplerate_converter`, example value is `soxr very high`
 FILESYSTEM_CHARSET|Defaults to `UTF-8`
+AUDIO_BUFFER_SIZE|Audio buffersize
 OUTPUT_CREATE|Indexed, create an output if set to `yes`
 OUTPUT_ENABLED|Indexed, enables the output if set to `yes`
 OUTPUT_TYPE|Indexed, specifies output type (valid values are `alsa`, `pipewire`, `pulse`, `null`, more to come)
@@ -257,5 +258,6 @@ You just need to have Python installed.
 
 DATE|COMMENT
 :---|:---
+2026-05-19|Add support for optional AUDIO_BUFFER_SIZE
 2025-05-03|Extended alsa, pipewire, pulse and null support
 2025-04-30|First public release

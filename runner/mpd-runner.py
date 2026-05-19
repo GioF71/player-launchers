@@ -141,6 +141,7 @@ class MpdConfKey(Enum):
     PORT = "port"
     SAMPLERATE_CONVERTER = "samplerate_converter"
     FILESYSTEM_CHARSET = "filesystem_charset"
+    AUDIO_BUFFER_SIZE = "audio_buffer_size"
     OUTPUT_NAME = "name"
     OUTPUT_ENABLED = "enabled"
     OUTPUT_DEVICE = "device"
@@ -282,6 +283,10 @@ class EnvironmentVariable(Enum):
         validator=Validator.YES_NO_OR_EMPTY.value,
         mpd_conf_key=MpdConfKey.PLUGIN_ENABLED.value)
     # other stuff
+    AUDIO_BUFFER_SIZE = EnvironmentVariableData(
+        default_value="no",
+        validator=Validator.MUST_BE_INT.value,
+        mpd_conf_key=MpdConfKey.AUDIO_BUFFER_SIZE.value)
     FILESYSTEM_CHARSET = EnvironmentVariableData(
         default_value="UTF-8",
         mpd_conf_key=MpdConfKey.FILESYSTEM_CHARSET.value)
@@ -1030,6 +1035,7 @@ def write_config_file() -> str:
         # final stuff
         write_variable(f=f, env_var=EnvironmentVariable.SAMPLERATE_CONVERTER)
         write_variable(f=f, env_var=EnvironmentVariable.FILESYSTEM_CHARSET)
+        write_variable(f=f, env_var=EnvironmentVariable.AUDIO_BUFFER_SIZE)
         f.close()
     return str(config_file)
 
